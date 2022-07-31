@@ -1,4 +1,4 @@
-import { FeedsSpeeds } from "./FeedsSpeeds"
+import { FeedsSpeeds } from "./FeedsSpeeds.js";
 
 let but = document.getElementById("but");
 
@@ -12,7 +12,6 @@ feedSpeedsBut.addEventListener("click", function(){console.log("helloworld")});
 materialsBut.addEventListener("click", function(){console.log("hello material world")});
 
 toolBut.addEventListener("click", function(){console.log("hello tool world")});
-
 
 //
 

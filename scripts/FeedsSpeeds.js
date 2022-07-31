@@ -1,4 +1,4 @@
-import { Page } from "scripts/Page";
+import { Page } from "./Page.js";
 
 export class FeedsSpeeds extends Page {
     constructor(){
