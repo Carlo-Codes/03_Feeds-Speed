@@ -1,0 +1,23 @@
+{
+  "name": "03_feeds-speed",
+  "version": "1.0.0",
+  "description": "A place for all you feeds and speeds needs - CNC toolpathing with ease",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Carlo-Codes/03_Feeds-Speed.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Carlo-Codes/03_Feeds-Speed/issues"
+  },
+  "homepage": "https://github.com/Carlo-Codes/03_Feeds-Speed#readme",
+  "dependencies": {
+    "express": "^4.18.1"
+  }
+}
