@@ -1,27 +1,31 @@
-let http = require('http');
-let fs = require('fs');
+
+let mysql = require('mysql2')
 let express = require('express');
 let app = express();
 let port = 7800;
-let cssPath = "styles/";
-let jsPath = "scripts/"
+let dbPort = 9000;
+
+var dbCon = mysql.createConnection({
+    host : "127.0.0.1",
+    port : "3306", 
+    user : "root",
+    password: "Qwerty11!"
+});
+
+dbCon.connect((err) => {
+    if (err) throw err;
+    console.log("db Connected");
+});
+
+app.use(express.static('public'));
 
 
 
-app.use(express.static(__dirname));
-
-
-
-
-app.get('/', (req, res) => {
-    res.sendFile(__dirname + '/index.html');
-
-    res.setHeader('Content-Type', 'text/css')
-    
-
-
-    }
-
-);
+app.get('/:dynamic', (req, res) => {
+    let { dynamic} = req.params
+    res.status(200).json({info : 'test'})
+});
 
 app.listen(port, () => console.log('server running...'));
+
+

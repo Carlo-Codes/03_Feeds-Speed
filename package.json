@@ -18,6 +18,8 @@
   },
   "homepage": "https://github.com/Carlo-Codes/03_Feeds-Speed#readme",
   "dependencies": {
-    "express": "^4.18.1"
+    "ejs": "^3.1.8",
+    "express": "^4.18.1",
+    "mysql2": "^2.3.3"
   }
 }
