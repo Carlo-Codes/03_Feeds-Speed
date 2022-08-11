@@ -28,7 +28,7 @@ async function getToolsInfo(e){
      } )
 
      let data = await res.json()
-     console.log(data.info)
+     console.log(data[3].ToolsDiameter)
 }
 
 async function postInfo(){
