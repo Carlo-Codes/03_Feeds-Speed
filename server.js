@@ -24,16 +24,13 @@ app.use(express.static('public'));
 
 
 app.get('/toolInfo', (req, res) => {
-    let data
-    dbCon.query('SELECT * FROM tools;', (err, result, fields) => {
+    
+    dbCon.query('SELECT * FROM tools;', (err, result) => {
         if (err) throw err
         
-        console.log(result)
+        //console.log(result)
         res.status(200).json(result)
     })
- 
-   
-    
 });
 
 app.listen(port, () => console.log('server running...'));
