@@ -11,7 +11,7 @@ let materialsBut = navBar.getElementsByTagName("p")[1];
 let toolBut = navBar.getElementsByTagName("p")[2];
 
 let contentTable = document.getElementById("table_div");
-let table = contentTable.getElementsByTagName("table")[0]
+let html_table = contentTable.getElementsByTagName("table")[0]
 
 
 
@@ -29,7 +29,7 @@ function setTableDate(data, table){ //populate table - a table will be on most p
    let headers = ['<tbody class = "column_header">'];  // empty column names
    let rows = [] // empty row data
 
-   for (let i = 1; i < columns.length; i++ ){
+   for (let i = 0; i < columns.length; i++ ){
       headers += `<th class = "column_names">${columns[i]}</th>`; //populate column names
    }
    headers += "</tbody>"
@@ -38,7 +38,7 @@ function setTableDate(data, table){ //populate table - a table will be on most p
    for (let i = 0; i < data.length; i++){ 
       rows += `<tr>\n`; 
       let values = Object.values(data[i])//for 1 row
-      for (let j = 1; j < columns.length; j++){ //for every cell in row
+      for (let j = 0; j < columns.length; j++){ //for every cell in row
          rows += `<td>${values[j]}</td>\n`;
       };
       rows += `</tr>\n`; //finish row
@@ -55,9 +55,9 @@ async function getToolsInfo(e){
      let res = await fetch (homeUrl + 'toolInfo',{
         method : 'GET',
      } );
-     let data = await res.json();
+     let data_inc = await res.json();
      //console.log(data[3].ToolsDiameter);
-     setTableDate(data, table);
+     setTableDate(data_inc, html_table);
 }
 
 async function postInfo(){
