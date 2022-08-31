@@ -1,9 +1,12 @@
-import { FeedsSpeeds } from "./FeedsSpeeds.js";
-const homeUrl = 'http://localhost:7800/'
+
+import { TablePage } from "./TablePage.js"; 
+
+// URLS
+const homeUrl = 'http://localhost:7800/';
+const tool_dataUrl = 'toolInfo';
 
 
-let but = document.getElementById("but");
-
+//html Elements
 let navBar = document.getElementById("nav");
 let homeBut = navBar.getElementsByTagName("h2")[0];
 let feedSpeedsBut = navBar.getElementsByTagName("p")[0];
@@ -15,13 +18,22 @@ let html_table = contentTable.getElementsByTagName("table")[0]
 
 
 
+
+
+
+
 //event listeners -  have url hash operations for use later
 homeBut.addEventListener("click", function(){window.location = "/";});//eventlistener for clicking te home button
 feedSpeedsBut.addEventListener("click", function(){window.location.hash = feedSpeedsBut.innerHTML;});//eventlistener for clicking te F&S button
 
 materialsBut.addEventListener("click", function(){window.location.hash = materialsBut.innerHTML});//eventlistener for clicking te materials button
 
-toolBut.addEventListener("click", getToolsInfo); //eventlistener for clicking te tools button
+toolBut.addEventListener("click", ()=>{
+   console.log("fired")
+   let toolPage = new TablePage(toolBut, html_table, tool_dataUrl);
+   toolPage.getToolsInfo;
+
+}); //eventlistener for clicking te tools button
 
 
 function setTableDate(data, table){ //populate table - a table will be on most pages
