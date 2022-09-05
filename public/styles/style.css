@@ -65,7 +65,7 @@ h1 {
     border: none
   }
 
-  .column_header {
+  tr {
     background-color: #ffffff;
     color: rgb(0, 0, 0);
     
@@ -75,7 +75,6 @@ h1 {
   }
 
   .column_names {
-    border: none;
     padding: 10px;
   }
   

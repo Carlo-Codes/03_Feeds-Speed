@@ -2,10 +2,10 @@
 export class Page{
    
 
-    constructor(html_button){
+    constructor(html_button, homeUrl){
       this.button = html_button; //the button element in the html
-      window.location.hash = this.button.innerHTML;
-      this.homeUrl = 'http://localhost:7800/'
+      this.h_url = homeUrl;
+      this.hash = this.button.innerHTML;
     };
 
    

@@ -1,11 +1,12 @@
 import { Page } from "./Page.js";
 
 export class TablePage extends Page {
-    constructor(html_button, html_table, data_fetch_url){
-        super(html_button);
+    constructor(html_button, homeUrl, html_table, data_fetch_url){
+        super(html_button, homeUrl);
         this.data; //table data to eventually display
         this.table = html_table; //the table element predefined in the html
         this.url = data_fetch_url // string url to server to get data for table
+        
     };
 
     setTableData(){ //populate table - a table will be on table pages
@@ -15,7 +16,7 @@ export class TablePage extends Page {
      
         for (let i = 0; i < columns.length; i++ ){
            headers += `<th class = "column_names">${columns[i]}</th>`; //populate column names
-        };
+         };
         headers += "</tbody>"
         this.table.innerHTML = headers; //inject headers into html
      
@@ -26,17 +27,23 @@ export class TablePage extends Page {
               rows += `<td>${values[j]}</td>\n`;
            };
            rows += `</tr>\n`; //finish row
-        };
+         };
         this.table.innerHTML += rows;// inject rows into html
         console.log(rows); //debug
      };
 
 
-    async getToolsInfo(e){ //nuances to async functions in classed - look them up
-        e.preventDefault(e);
-        console.log("fired")
-         let res = await fetch (homeUrl + this.url, {method : 'GET',});
+    async getToolsInfo(e){ //nuances to async functions in classed - look them up;
+         let res = await fetch (this.h_url + this.url, {method : 'GET',});
          this.data = await res.json();
-         setTableDate();
+         console.log("class Fired")
         };
+
+      async render_content(){
+         await this.getToolsInfo();
+         this.table.innerHTML = "";
+         this.setTableData();
+         window.location.hash = this.hash;
+
+      };
 };

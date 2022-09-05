@@ -4,6 +4,7 @@ import { TablePage } from "./TablePage.js";
 // URLS
 const homeUrl = 'http://localhost:7800/';
 const tool_dataUrl = 'toolInfo';
+const material_dataUrl = 'matInfo';
 
 
 //html Elements
@@ -16,7 +17,8 @@ let toolBut = navBar.getElementsByTagName("p")[2];
 let contentTable = document.getElementById("table_div");
 let html_table = contentTable.getElementsByTagName("table")[0]
 
-
+let toolPage = new TablePage(toolBut, homeUrl, html_table ,tool_dataUrl);
+let materialsPage = new TablePage(materialsBut,homeUrl,html_table, material_dataUrl)
 
 
 
@@ -26,52 +28,11 @@ let html_table = contentTable.getElementsByTagName("table")[0]
 homeBut.addEventListener("click", function(){window.location = "/";});//eventlistener for clicking te home button
 feedSpeedsBut.addEventListener("click", function(){window.location.hash = feedSpeedsBut.innerHTML;});//eventlistener for clicking te F&S button
 
-materialsBut.addEventListener("click", function(){window.location.hash = materialsBut.innerHTML});//eventlistener for clicking te materials button
+materialsBut.addEventListener("click", () => {
+  materialsPage.render_content();
+});//eventlistener for clicking te materials button
 
-toolBut.addEventListener("click", ()=>{
-   console.log("fired")
-   let toolPage = new TablePage(toolBut, html_table, tool_dataUrl);
-   toolPage.getToolsInfo;
+toolBut.addEventListener("click", () => { //eventlistener for clicking te tools button
+   toolPage.render_content();
+}); 
 
-}); //eventlistener for clicking te tools button
-
-
-function setTableDate(data, table){ //populate table - a table will be on most pages
-   let columns = Object.keys(data[0]);// recieve the coloumn headers
-   let headers = ['<tbody class = "column_header">'];  // empty column names
-   let rows = [] // empty row data
-
-   for (let i = 0; i < columns.length; i++ ){
-      headers += `<th class = "column_names">${columns[i]}</th>`; //populate column names
-   }
-   headers += "</tbody>"
-   table.innerHTML = headers; //inject headers into html
-
-   for (let i = 0; i < data.length; i++){ 
-      rows += `<tr>\n`; 
-      let values = Object.values(data[i])//for 1 row
-      for (let j = 0; j < columns.length; j++){ //for every cell in row
-         rows += `<td>${values[j]}</td>\n`;
-      };
-      rows += `</tr>\n`; //finish row
-   };
-   table.innerHTML += rows;// inject rows into html
-   console.log(rows); //debug
-};
-
-
-
-async function getToolsInfo(e){
-    e.preventDefault(e);
-    window.location.hash = toolBut.innerHTML;
-     let res = await fetch (homeUrl + 'toolInfo',{
-        method : 'GET',
-     } );
-     let data_inc = await res.json();
-     //console.log(data[3].ToolsDiameter);
-     setTableDate(data_inc, html_table);
-}
-
-async function postInfo(){
-    
-}
