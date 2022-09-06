@@ -33,6 +33,16 @@ app.get('/toolInfo', (req, res) => {
     })
 });
 
+app.get('/chiploadInfo', (req, res) => {
+    
+    dbCon.query('SELECT * FROM ChipLoad;', (err, result) => {
+        if (err) throw err
+        
+        //console.log(result)
+        res.status(200).json(result)
+    })
+});
+
 app.listen(port, () => console.log('server running...'));
 
 

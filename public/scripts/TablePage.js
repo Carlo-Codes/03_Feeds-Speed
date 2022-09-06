@@ -1,7 +1,7 @@
 import { Page } from "./Page.js";
 
 export class TablePage extends Page {
-    constructor(html_button, homeUrl, html_table, data_fetch_url){
+      constructor(html_button, homeUrl, html_table, data_fetch_url){
         super(html_button, homeUrl);
         this.data; //table data to eventually display
         this.table = html_table; //the table element predefined in the html
@@ -9,7 +9,7 @@ export class TablePage extends Page {
         
     };
 
-    setTableData(){ //populate table - a table will be on table pages
+      setTableData(){ //populate table - a table will be on table pages
         let columns = Object.keys(this.data[0]);// recieve the coloumn headers
         let headers = ['<tbody class = "column_header">'];  // empty column names
         let rows = []; // empty row data
@@ -33,7 +33,7 @@ export class TablePage extends Page {
      };
 
 
-    async getToolsInfo(e){ //nuances to async functions in classed - look them up;
+      async getToolsInfo(e){ //nuances to async functions in classed - look them up;
          let res = await fetch (this.h_url + this.url, {method : 'GET',});
          this.data = await res.json();
          console.log("class Fired")

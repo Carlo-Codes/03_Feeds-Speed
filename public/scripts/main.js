@@ -1,10 +1,19 @@
 
 import { TablePage } from "./TablePage.js"; 
 
+/* Notes to seld
+TODO
+add materials page & data
+
+
+*/
+
+
 // URLS
 const homeUrl = 'http://localhost:7800/';
 const tool_dataUrl = 'toolInfo';
-const material_dataUrl = 'matInfo';
+const material_dataUrl = 'chiploadInfo';
+
 
 
 //html Elements
