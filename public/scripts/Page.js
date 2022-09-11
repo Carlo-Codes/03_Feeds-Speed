@@ -1,5 +1,5 @@
 
-export class Page{ //should only use classes for status' and should make a class per feature really
+export class Page{ //should only use classes for status' and should make a class per feature really, not per page
    
 
     constructor(html_button, homeUrl){

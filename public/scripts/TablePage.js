@@ -1,12 +1,13 @@
 import { Page } from "./Page.js";
 
 export class TablePage extends Page {
-      constructor(html_button, homeUrl, html_table, data_fetch_url){
+      constructor(html_button, homeUrl, html_table, data_fetch_url, title = ""){
         super(html_button, homeUrl);
         this.data; //table data to eventually display
         this.table = html_table; //the table element predefined in the html
         this.url = data_fetch_url // string url to server to get data for table
-        
+        this.title = title
+        this.title_html = html_table.parentElement.previousSibling.previousSibling;
     };
 
       setTableData(){ //populate table - a table will be on table pages
@@ -42,8 +43,11 @@ export class TablePage extends Page {
       async render_content(){
          await this.getToolsInfo();
          this.table.innerHTML = "";
+         this.title_html.innerHTML = ""
+         this.title_html.innerHTML = this.title
          this.setTableData();
          window.location.hash = this.hash;
+         
 
       };
 };
