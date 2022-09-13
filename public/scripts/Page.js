@@ -9,5 +9,5 @@ export class Page{ //should only use classes for status' and should make a class
     };
 
    
-    
+
 };

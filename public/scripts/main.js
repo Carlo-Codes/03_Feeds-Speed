@@ -1,9 +1,11 @@
 
 import { TablePage } from "./TablePage.js"; 
+import { CalcPage } from "./CalcPage.js";
 
 /* Notes to seld
 TODO
-add materials page & data
+add feeds and speeds calc page
+adjust css & html to have proper containers 
 
 
 */
@@ -27,11 +29,12 @@ let feedSpeedsBut = navBar.getElementsByTagName("p")[0];
 let materialsBut = navBar.getElementsByTagName("p")[1];
 let toolBut = navBar.getElementsByTagName("p")[2];
 
-let contentTable = document.getElementById("table_div");
-let html_table = contentTable.getElementsByTagName("table")[0]
+let content = document.getElementById("table_div");
+let html_table = content.getElementsByTagName("table")[0]
 
 let toolPage = new TablePage(toolBut, homeUrl, html_table ,tool_dataUrl, tools_title);
-let materialsPage = new TablePage(materialsBut,homeUrl,html_table, material_dataUrl,"Chipload in mm")
+let materialsPage = new TablePage(materialsBut,homeUrl,html_table, material_dataUrl,materials_title);
+let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, content);
 
 
 
@@ -42,6 +45,7 @@ homeBut.addEventListener("click", function(){window.location = "/";});//eventlis
 
 feedSpeedsBut.addEventListener("click", function(){ //eventlistener for clicking te F&S button
   window.location.hash = feedSpeedsBut.innerHTML
+  feedsSpeedsPg.render_content();
 });
 
 materialsBut.addEventListener("click", () => { //eventlistener for clicking te materials button

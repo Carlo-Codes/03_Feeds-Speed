@@ -30,21 +30,22 @@ export class TablePage extends Page {
            rows += `</tr>\n`; //finish row
          };
         this.table.innerHTML += rows;// inject rows into html
-        console.log(rows); //debug
+        //console.log(rows); //debug
      };
 
 
       async getToolsInfo(e){ //nuances to async functions in classed - look them up;
          let res = await fetch (this.h_url + this.url, {method : 'GET',});
          this.data = await res.json();
-         console.log("class Fired")
+         //console.log("class Fired")
         };
 
       async render_content(){
          await this.getToolsInfo();
          this.table.innerHTML = "";
-         this.title_html.innerHTML = ""
-         this.title_html.innerHTML = this.title
+         this.title_html.innerHTML = "";
+        // this.title_html.parentElement.innerHTML="";
+         this.title_html.innerHTML = this.title;
          this.setTableData();
          window.location.hash = this.hash;
          
