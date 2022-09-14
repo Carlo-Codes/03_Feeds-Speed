@@ -36,7 +36,7 @@ h1 {
     padding: 16px;
   }
 
-  .content{
+  #content_container{
     margin-left: 200px;
     padding-left: 16px;
     padding-top: 16px;
@@ -60,7 +60,7 @@ h1 {
   
   }
 
-  .table {
+  #table {
     border-color: white;
     width : 500px;
     text-align: center;
@@ -70,29 +70,23 @@ h1 {
   }
 
   tr {
-    background-color: #ffffff;
 
-    border-color: white;
     width: 100%;
     padding: 20px;
 
   }
-
-  .column_names {
-    padding: 10px;
-    border: 5px;
-    border-color: black;
-  }
   
-  td{
+  td {
     padding: 10px;
-    border-color: white
+    border-color: white;
   }
+
   #title{
 
     width: 500px;
     text-align: center;
     padding-top : 10px;
+    padding-bottom : 10px;
     background-color: white;
   }
 

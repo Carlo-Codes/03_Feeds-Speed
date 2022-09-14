@@ -29,12 +29,16 @@ let feedSpeedsBut = navBar.getElementsByTagName("p")[0];
 let materialsBut = navBar.getElementsByTagName("p")[1];
 let toolBut = navBar.getElementsByTagName("p")[2];
 
-let content = document.getElementById("table_div");
-let html_table = content.getElementsByTagName("table")[0]
+let table_container = document.getElementById("table_div");
+let html_table = table_container.getElementsByTagName("table")[0];
 
-let toolPage = new TablePage(toolBut, homeUrl, html_table ,tool_dataUrl, tools_title);
-let materialsPage = new TablePage(materialsBut,homeUrl,html_table, material_dataUrl,materials_title);
-let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, content);
+let content_container = table_container.parentElement;
+let content = table_container.previousElementSibling.previousElementSibling; //just practicing moving in the dom
+
+
+let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
+let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
+let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, content, "F&S");
 
 
 

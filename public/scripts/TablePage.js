@@ -1,16 +1,15 @@
 import { Page } from "./Page.js";
 
 export class TablePage extends Page {
-      constructor(html_button, homeUrl, html_table, data_fetch_url, title = ""){
-        super(html_button, homeUrl);
+      constructor(html_button, homeUrl, data_fetch_url, title){
+        super(html_button, homeUrl, data_fetch_url, title);
         this.data; //table data to eventually display
-        this.table = html_table; //the table element predefined in the html
-        this.url = data_fetch_url // string url to server to get data for table
-        this.title = title
-        this.title_html = html_table.parentElement.previousSibling.previousSibling;
-    };
+         // string url to server to get data for table
+      };
+
 
       setTableData(){ //populate table - a table will be on table pages
+         this.table_html.innerHTML = ""
         let columns = Object.keys(this.data[0]);// recieve the coloumn headers
         let headers = ['<tbody class = "column_header">'];  // empty column names
         let rows = []; // empty row data
@@ -19,7 +18,7 @@ export class TablePage extends Page {
            headers += `<th class = "column_names">${columns[i]}</th>`; //populate column names
          };
         headers += "</tbody>"
-        this.table.innerHTML = headers; //inject headers into html
+        this.table_html.innerHTML = headers; //inject headers into html
      
         for (let i = 0; i < this.data.length; i++){ 
            rows += `<tr>\n`; 
@@ -29,22 +28,14 @@ export class TablePage extends Page {
            };
            rows += `</tr>\n`; //finish row
          };
-        this.table.innerHTML += rows;// inject rows into html
+        this.table_html.innerHTML += rows;// inject rows into html
         //console.log(rows); //debug
      };
 
-
-      async getToolsInfo(e){ //nuances to async functions in classed - look them up;
-         let res = await fetch (this.h_url + this.url, {method : 'GET',});
-         this.data = await res.json();
-         //console.log("class Fired")
-        };
-
       async render_content(){
-         await this.getToolsInfo();
-         this.table.innerHTML = "";
+         this.data = await super.getInfo(this.url);
          this.title_html.innerHTML = "";
-        // this.title_html.parentElement.innerHTML="";
+         this.content_html.innerHTML = ""; //clearing previous page
          this.title_html.innerHTML = this.title;
          this.setTableData();
          window.location.hash = this.hash;
