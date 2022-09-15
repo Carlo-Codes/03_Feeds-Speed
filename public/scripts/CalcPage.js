@@ -16,35 +16,42 @@ export class CalcPage extends Page{
       //wiping previous page
       this.table_html.innerHTML = "";
       this.title_html.innerHTML = "";
+
+      //getting data from db
       let tool_data = await this.getInfo(this.tools_url);
-      let material_data = await this.getInfo(this.materials_url);
+      let material_data = await this.getInfo(this.materials_url); 
       
 
       
-      let material_dropdown_title = `<label for = "Material"> Material :</label>\n`;
+     
       
-      function populate_dropdown(html_id, data){ //should be a prototype 
+      function populate_dropdown(html_id, data, key){ //should be a prototype 
   
         //html component parts
+        let dropdown_label = `<label for = "${html_id}"> ${html_id} :</label>\n`;
         let dropdown_content_start = `<select id="${html_id}">\n`;
         let content = "";
         let dropdown_content_end = `</select>\n`;
 
-        //logic
+        //creating content for drop down
         for (let i=0; i < data.length; i++){
-          let inject = data[i].Material
-          content += `<option value="${inject}">${inject}</option>\n`;
+          let inject = data[i].Material //getting the material name from db -- !!!!!!!!!!need to make this work with other drop downs!!!!!!!!!!
+          content += `<option value="${inject}">${inject}</option>\n`; // injecting data into html template
+          console.log(inject);
         }
-        let dropdown = dropdown_content_start + content + dropdown_content_end; // combinidng strings for html
+
+         // combinidng strings for html
+        let dropdown = dropdown_label + dropdown_content_start + content + dropdown_content_end;
         return dropdown;
       }
-      console.log(material_data);
-      console.log(populate_dropdown("material", material_data));
 
-      let content = populate_dropdown("material", material_data);
+      //debug
+      // console.log(material_data);
+      // console.log(populate_dropdown("material", material_data));
 
+      this.content_html.innerHTML = populate_dropdown("Material", material_data, "Material") + "\n" + populate_dropdown("Tool", tool_data, "Diameter");
 
-      this.content_html.innerHTML = material_dropdown_title + populate_dropdown("material", material_data);
+      
 
 
       
