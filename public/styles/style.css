@@ -41,7 +41,14 @@ h1 {
     padding-left: 16px;
     padding-top: 16px;
     width: auto;
+    background-color: white;
+    text-align: center;
 
+  }
+
+  #content{
+    padding: 16px;
+    
   }
   
   .navbar p:hover{
@@ -55,14 +62,16 @@ h1 {
   }
 
   #table_div {
-    width : 500px;
+    width: max-content;
     background-color: white;
+    margin-left: auto;
+    margin-right: auto;
   
   }
 
   #table {
+    width: max-content;
     border-color: white;
-    width : 500px;
     text-align: center;
     padding: 0px;
 
@@ -83,11 +92,10 @@ h1 {
 
   #title{
 
-    width: 500px;
-    text-align: center;
-    padding-top : 10px;
-    padding-bottom : 10px;
-    background-color: white;
+    padding : 16px;
+    font-size: larger;
+    font-weight: bolder;
+    
   }
 
 

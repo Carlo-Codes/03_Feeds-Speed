@@ -3,11 +3,15 @@ export class Page{ //should only use classes for status' and should make a class
    
 
     constructor(html_button, homeUrl, data_fetch_url, title){
+
+      //variables
       this.button = html_button; //the button element in the html
       this.h_url = homeUrl;
       this.hash = this.button.innerHTML;
       this.url = data_fetch_url;
       this.title = title;
+
+      //html elements
       this.table_html = document.getElementsByTagName("table")[0];
       this.title_html = document.getElementById("title"); 
       this.content_html = document.getElementById("content");

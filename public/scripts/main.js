@@ -18,7 +18,7 @@ const material_dataUrl = 'chiploadInfo';
 
 //Table Titles
 const tools_title = "Tools"
-const materials_title = "Chipload in mm"
+const materials_title = "Chipload in mm (Material vs Tool Diameter)"
 
 
 
