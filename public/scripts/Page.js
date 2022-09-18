@@ -23,4 +23,16 @@ export class Page{ //should only use classes for status' and should make a class
       return data;
      };
 
+    getDataRow(data, value){
+      let value_row;
+      let rowData;
+      for (let i = 0; i < data.length; i++){ //testing to see where the data row is we want based on value
+        if (data[i]["Material"] === value){
+          value_row = i
+        }
+      }
+      rowData = data[value_row];
+      return rowData;
+     };
+
 };
