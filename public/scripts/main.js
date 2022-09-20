@@ -19,7 +19,7 @@ const material_dataUrl = 'chiploadInfo';
 //Table Titles
 const tools_title = "Tools"
 const materials_title = "Chipload in mm (Material vs Tool Diameter)"
-
+const FS_title = "F&S"
 
 
 //html Elements
@@ -32,7 +32,7 @@ let toolBut = navBar.getElementsByTagName("p")[2];
 
 let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
-let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], "F&S");
+let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
 
 
 
@@ -44,6 +44,7 @@ homeBut.addEventListener("click", function(){window.location = "/";});//eventlis
 feedSpeedsBut.addEventListener("click", function(){ //eventlistener for clicking te F&S button
   window.location.hash = feedSpeedsBut.innerHTML
   feedsSpeedsPg.render_content();
+
 });
 
 materialsBut.addEventListener("click", () => { //eventlistener for clicking te materials button
