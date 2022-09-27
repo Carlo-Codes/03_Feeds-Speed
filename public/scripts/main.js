@@ -1,7 +1,8 @@
 
 import { TablePage } from "./TablePage.js"; 
-import { CalcPage } from "./CalcPage.js";
+import { ChipPage } from "./ChipPage.js";
 import { Page } from "./Page.js";
+import { FeedsSpeeds } from "./Feeds&Speeds.js";
 
 /* Notes to seld
 TODO
@@ -21,6 +22,7 @@ const material_dataUrl = 'chiploadInfo';
 const tools_title = "Tools"
 const materials_title = "Chipload in mm (Material vs Tool Diameter)"
 const FS_title = "F&S"
+const Chip_title = "Chip Load Calculator"
 
 
 //html Elements
@@ -29,14 +31,16 @@ let homeBut = document.getElementById("Home_but");
 let feedSpeedsBut = document.getElementById("FeedSpeed_button");
 let materialsBut = document.getElementById("Material_button");
 let toolBut =  document.getElementById("Tool_button");
+let chipBtn = document.getElementById("Chip_calculator");
 
 //pages
 let homePage = new Page(homeBut, homeUrl, "/", "Home"); //need to give this a render content method!!!
 let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
-let feedsSpeedsPg = new CalcPage(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
+let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
+let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
 
-let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg];
+let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg];
 
 function navEventHandler(e){
   let target = e.target.parentNode.id;
