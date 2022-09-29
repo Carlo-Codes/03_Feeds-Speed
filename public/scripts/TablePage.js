@@ -34,11 +34,12 @@ export class TablePage extends Page {
 
       async render_content(){
          this.data = await super.getInfo(this.url);
-         this.title_html.innerHTML = "";
-         this.content_html.innerHTML = ""; //clearing previous page
+         
+         this.clearPage();
          this.title_html.innerHTML = this.title;
          this.setTableData();
-         window.location.hash = this.hash;
+
+         window.location.hash = this.title;
          
 
       };

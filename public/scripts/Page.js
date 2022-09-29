@@ -7,14 +7,18 @@ export class Page{ //should only use classes for status' and should make a class
       //variables
       this.button = html_button; //the button element in the html
       this.h_url = homeUrl;
-      this.hash = this.button.innerHTML;
       this.url = data_fetch_url;
       this.title = title;
+      window.location.hash = title;
 
       //html elements
       this.table_html = document.getElementsByTagName("table")[0];
       this.title_html = document.getElementById("title"); 
       this.content_html = document.getElementById("content");
+
+      // buttons
+      this.buttons = {};
+
     };
 
     async getInfo(url){ //nuances to async functions in classed - look them up;
@@ -23,7 +27,7 @@ export class Page{ //should only use classes for status' and should make a class
       return data;
      };
 
-    getDataRow(data, value){
+    getDataRow(data, value){ //get the row we want
       let value_row;
       let rowData;
       for (let i = 0; i < data.length; i++){ //testing to see where the data row is we want based on value
@@ -34,5 +38,17 @@ export class Page{ //should only use classes for status' and should make a class
       rowData = data[value_row];
       return rowData;
      };
+
+     clearPage(){
+      this.content_html.innerHTML = "";
+      this.title_html.innerHTML = "";
+      this.table_html.innerHTML = ""
+     }
+
+     render_content(){
+      this.clearPage();
+      this.content_html.innerHTML = "something about the website" // fill this with comment box or something? or instructions
+      window.location.hash = this.title;
+    }
 
 };

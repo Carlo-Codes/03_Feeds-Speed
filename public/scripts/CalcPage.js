@@ -13,11 +13,14 @@ export class CalcPage extends Page{
         this.tool_diameter_dropdown_id = "Tool Diameter";
         this.tool_flute_number_dropdown_id = "Tool Flutes";
         this.rpm_dropdown_id = "RPM";
+
+        //DB data
         this.tool_data;
         this.material_data;
         this.flute_data;
         this.RPM_data
-        this.retrieve_data();
+
+        this.retrieve_data(); //retrieves data on start up of a calculation page
     }
 
     async retrieve_data() { //getting data from db
@@ -75,13 +78,10 @@ export class CalcPage extends Page{
       this.content_html.innerHTML += `<div id = "results"></div>`;
     }
 
-    generate_button(id, text){ //generate button
+    generate_button(id, text, func){ //generate button
       let button = `<button type="button" id="${id}"> ${text}</button>`
+      this.buttons[id] = func
       return button;
     }
-
-
-
-
 
   }

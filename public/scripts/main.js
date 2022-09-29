@@ -33,14 +33,22 @@ let materialsBut = document.getElementById("Material_button");
 let toolBut =  document.getElementById("Tool_button");
 let chipBtn = document.getElementById("Chip_calculator");
 
+let content_html = document.getElementById("content")
+
+// could do a "create page" function that automates the below
+
 //pages
-let homePage = new Page(homeBut, homeUrl, "/", "Home"); //need to give this a render content method!!!
+let homePage = new Page(homeBut, homeUrl, "/", "Home");
 let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
 let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
 let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
 
-let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg];
+let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
+
+
+
+let postbt_ids = []; //when we start posting to the db
 
 function navEventHandler(e){
   let target = e.target.parentNode.id;
@@ -53,25 +61,25 @@ function navEventHandler(e){
 
 }
 
+function calcEventHandler(e){
+  let target = e.target.id;
+  for (let i = 0; i < page_arrays.length; i++){
+    let pg_btns = page_arrays[i].buttons;
+    let pg_btns_keys = Object.keys(pg_btns);
+    for (let j = 0; j < pg_btns_keys.length; j++){
+      if (pg_btns_keys[j] === target){
+        page_arrays[i].buttons[pg_btns_keys[j]]();
+      }
+    }
+  }
+}
+  
+
+
 navBar.addEventListener("click", navEventHandler);
+content_html.addEventListener("click", calcEventHandler);
 
 
 
 
-// //event listeners -  have url hash operations for use later
-// homeBut.addEventListener("click", function(){window.location = "/";});//eventlistener for clicking te home button
-
-// feedSpeedsBut.addEventListener("click", function(){ //eventlistener for clicking te F&S button
-//   window.location.hash = feedSpeedsBut.innerHTML
-//   feedsSpeedsPg.render_content();
-
-// });
-
-// materialsBut.addEventListener("click", () => { //eventlistener for clicking te materials button
-//   materialsPage.render_content();
-// });
-
-// toolBut.addEventListener("click", () => { //eventlistener for clicking te tools button
-//    toolPage.render_content();
-// }); 
 
