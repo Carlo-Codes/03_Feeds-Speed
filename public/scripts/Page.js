@@ -17,7 +17,7 @@ export class Page{ //should only use classes for status' and should make a class
       this.content_html = document.getElementById("content");
 
       // buttons
-      this.buttons = {};
+      this.buttons = {}; //buttons and their functions stored here for eventlisteners on main.js
 
     };
 
@@ -40,14 +40,23 @@ export class Page{ //should only use classes for status' and should make a class
      };
 
      clearPage(){
-      this.content_html.innerHTML = "";
-      this.title_html.innerHTML = "";
-      this.table_html.innerHTML = ""
+      this.content_html.replaceChildren();
+      this.title_html.replaceChildren();
+      this.table_html.replaceChildren();
+     }
+
+     createTextElement_id(id, text){
+      let ele = document.createElement('div');
+      ele.setAttribute("id", id);
+      text = document.createTextNode(text);
+      ele.appendChild(text);
+      return ele;
      }
 
      render_content(){
       this.clearPage();
-      this.content_html.innerHTML = "something about the website" // fill this with comment box or something? or instructions
+      let intro = this.createTextElement_id("intro", "// fill this with comment box or something? or instructions")
+      this.content_html.appendChild(intro);
       window.location.hash = this.title;
     }
 

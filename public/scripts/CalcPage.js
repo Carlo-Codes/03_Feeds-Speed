@@ -33,20 +33,29 @@ export class CalcPage extends Page{
     generate_dropdown(html_id, data, key){ //should be a prototype; creates dropdowns
 
       //html component parts
-      let dropdown_label = `<label for = "${html_id}">&nbsp &nbsp${html_id}:</label>\n`;
-      let dropdown_content_start = `<select id="${html_id}">\n`;
-      let content = "";
-      let dropdown_content_end = `</select>\n`;
+      let label = document.createElement("label"); //creating label for dropdown
+      label.setAttribute("for", `${html_id}`);
+      let label_text = document.createTextNode(`${html_id}`);
+      label.appendChild(label_text);
+
+      let dropdown_content = document.createElement("select"); // creating drop down
+      dropdown_content.setAttribute("id", `${html_id}`)
 
       //creating content for drop down
       for (let i=0; i < data.length; i++){
         let inject = data[i][key]; //getting the material name from db
-        content += `<option value="${inject}">${inject}</option>\n`; // injecting data into html template
+
+        let dd_option = document.createElement("option");// creating dropdown options
+        dd_option.setAttribute("value", `${inject}`);
+        let dd_option_txt = document.createTextNode(`${inject}`);
+        dd_option.appendChild(dd_option_txt);
+
+        dropdown_content.appendChild(dd_option);
       }
 
-       // combinidng strings for html
-      let dropdown = dropdown_label + dropdown_content_start + content + dropdown_content_end;
-      return dropdown;
+       // combinidng for html
+      console.log(label,dropdown_content);
+      return label, dropdown_content; //!!!!!continue from here sort out generate forms()!!!!!!!
     }
 
     generate_input(html_id, type){ 
@@ -78,7 +87,7 @@ export class CalcPage extends Page{
       this.content_html.innerHTML += `<div id = "results"></div>`;
     }
 
-    generate_button(id, text, func){ //generate button
+    generate_button(id, text, func){ //generate button. adds buttons data as button : function pairs. make sure to bind function to classes this
       let button = `<button type="button" id="${id}"> ${text}</button>`
       this.buttons[id] = func
       return button;

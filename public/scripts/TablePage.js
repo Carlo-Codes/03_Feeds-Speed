@@ -9,31 +9,42 @@ export class TablePage extends Page {
 
 
       setTableData(){ //populate table - a table will be on table pages
-         this.table_html.innerHTML = ""
         let columns = Object.keys(this.data[0]);// recieve the coloumn headers
-        let headers = ['<tbody class = "column_header">'];  // empty column names
+        let headers = document.createElement("tbody");  
+        headers.setAttribute("class", "column_header");
         let rows = []; // empty row data
      
         for (let i = 0; i < columns.length; i++ ){
-           headers += `<th class = "column_names">${columns[i]}</th>`; //populate column names
-         };
-        headers += "</tbody>"
-        this.table_html.innerHTML = headers; //inject headers into html
+            let header_name = document.createElement("th")
+            header_name.setAttribute("class","column_names");
+            let text = document.createTextNode(`${columns[i]}`)
+            header_name.appendChild(text);
+            headers.appendChild(header_name)
+        }
+
+        this.table_html.appendChild(headers); //inject headers into html
      
         for (let i = 0; i < this.data.length; i++){ 
-           rows += `<tr>\n`; 
-           let values = Object.values(this.data[i])//for 1 row 
-           for (let j = 0; j < columns.length; j++){ //for every cell in row
-              rows += `<td>${values[j]}</td>\n`;
-           };
-           rows += `</tr>\n`; //finish row
+            let values = Object.values(this.data[i])//1 row of data
+            let row = document.createElement("tr");//create a row
+
+            for (let j = 0; j < values.length; j++){ //for every cell in row from data
+               let cell = document.createElement("td");// create cell & add data
+               let row_text = document.createTextNode(`${values[j]}`);
+               cell.appendChild(row_text)
+               row.appendChild(cell) // add cell to row
+               
+            };
+            this.table_html.appendChild(row);
+            console.log(row); //debug
          };
-        this.table_html.innerHTML += rows;// inject rows into html
-        //console.log(rows); //debug
+        
+        
      };
 
       async render_content(){
          this.data = await super.getInfo(this.url);
+         console.log(this.data)
          
          this.clearPage();
          this.title_html.innerHTML = this.title;
