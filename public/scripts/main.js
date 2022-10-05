@@ -47,9 +47,6 @@ let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Ch
 let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
 
 
-
-let postbt_ids = []; //when we start posting to the db
-
 function navEventHandler(e){
   let target = e.target.parentNode.id;
   for(let i =0; i < page_arrays.length; i++){
@@ -61,14 +58,16 @@ function navEventHandler(e){
 
 }
 
-function calcEventHandler(e){
-  let target = e.target.id;
-  for (let i = 0; i < page_arrays.length; i++){
-    let pg_btns = page_arrays[i].buttons;
-    let pg_btns_keys = Object.keys(pg_btns);
+function pg_btn_EventHandler(e){
+  let target = e.target.id; // finding target of click
+  
+  for (let i = 0; i < page_arrays.length; i++){ //go through avaliable pages
+    let pg_btns = page_arrays[i].buttons; // extract buttons set for page See CalcPage.generate_button() for setter
+    let pg_btns_keys = Object.keys(pg_btns); // extract their keys (stored as key value pair with function, See CalcPage.generate_button() for setter)
+
     for (let j = 0; j < pg_btns_keys.length; j++){
-      if (pg_btns_keys[j] === target){
-        page_arrays[i].buttons[pg_btns_keys[j]]();
+      if (pg_btns_keys[j] === target){ // go through keys to see if match
+        page_arrays[i].buttons[pg_btns_keys[j]](); //if match execute paired function bound to scope of class object
       }
     }
   }
@@ -77,7 +76,7 @@ function calcEventHandler(e){
 
 
 navBar.addEventListener("click", navEventHandler);
-content_html.addEventListener("click", calcEventHandler);
+content_html.addEventListener("click", pg_btn_EventHandler);
 
 
 

@@ -33,53 +33,83 @@ export class CalcPage extends Page{
     generate_dropdown(html_id, data, key){ //should be a prototype; creates dropdowns
 
       //html component parts
-      let dropdown_label = `<label for = "${html_id}">&nbsp &nbsp${html_id}:</label>\n`;
-      let dropdown_content_start = `<select id="${html_id}">\n`;
-      let content = "";
-      let dropdown_content_end = `</select>\n`;
+      let label = document.createElement("label"); //creating label for dropdown
+      label.setAttribute("for", `${html_id}`);
+      let label_text = document.createTextNode(`${html_id} :`);
+      label.appendChild(label_text);
+
+      let dropdown_content = document.createElement("select"); // creating drop down
+      dropdown_content.setAttribute("id", `${html_id}`)
 
       //creating content for drop down
       for (let i=0; i < data.length; i++){
         let inject = data[i][key]; //getting the material name from db
-        content += `<option value="${inject}">${inject}</option>\n`; // injecting data into html template
+
+        let dd_option = document.createElement("option");// creating dropdown options
+        dd_option.setAttribute("value", `${inject}`);
+        let dd_option_txt = document.createTextNode(`${inject}`);
+        dd_option.appendChild(dd_option_txt);
+
+        dropdown_content.appendChild(dd_option);
       }
 
-       // combinidng strings for html
-      let dropdown = dropdown_label + dropdown_content_start + content + dropdown_content_end;
-      return dropdown;
+       // combinidng for html
+      console.log(label,dropdown_content);
+      return [label, dropdown_content]; //!!!!!continue from here sort out generate forms()!!!!!!!
     }
 
     generate_input(html_id, type){ 
 
       //html component parts
-      let input_label = `<label for = "${html_id}">&nbsp &nbsp${html_id}:</label>\n`;
-      let input_start = `<input id="${html_id}" type = "${type}">\n`;
-      let input_end = `</input>\n`;
+      let label = document.createElement("label");
+      label.setAttribute("for", `${html_id}`)
+      let label_txt = document.createTextNode(`${html_id}`);
+      label.appendChild(label_txt);
+
+      let input = document.createElement("input");
+      input.setAttribute("id", `${html_id}`);
+      input.setAttribute("type", `${type}`);
 
        // combinidng strings for html
-      let input = input_label + input_start + input_end;
-      return input;
+      
+      return [label, input];
     }
 
     generate_form(inputs){
-      const form_start = "<form>";
-      let form_content = ""
-      const form_end = "</form>";
+      let form = document.createElement("form");
+      
+
       for (let i = 0; i < inputs.length; i++){
-        form_content += inputs[i];
-        form_content += "\n";
-        form_content += "<br>";
+        let br = document.createElement("br");
+        if (Array.isArray(inputs[i])){
+          for (let j = 0; j < inputs[i].length; j++){ //input may be an array of arrays
+            form.appendChild(inputs[i][j]);
+            form.appendChild(br)
+            
+            
+          }
+        }
+        else{
+          form.appendChild(br)
+          form.appendChild(inputs[i]);
+          
+        }
+        
       }
-      let form  = form_start + form_content + form_end;
       return form;
     }
 
     generate_results(){ // create a container for results
-      this.content_html.innerHTML += `<div id = "results"></div>`;
+      let results = document.createElement("div");
+      results.setAttribute("id", "results");
+      this.content_html.appendChild(results); //`<div id = "results"></div>`;
     }
 
-    generate_button(id, text, func){ //generate button
-      let button = `<button type="button" id="${id}"> ${text}</button>`
+    generate_button(id, text, func){ //generate button. adds buttons data as button : function pairs. make sure to bind function to classes this
+      let button = document.createElement("button")
+      button.setAttribute("id", `${id}`)
+      let but_text = document.createTextNode(text);
+      button.appendChild(but_text);
       this.buttons[id] = func
       return button;
     }

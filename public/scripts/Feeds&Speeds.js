@@ -42,7 +42,8 @@ export class FeedsSpeeds extends CalcPage {
   
   
         this.clearPage();
-        this.title_html.innerHTML = this.title;
+        let title_node = document.createTextNode(this.title);
+        this.title_html.appendChild(title_node);
 
   
         //creating dropdowns
@@ -53,11 +54,11 @@ export class FeedsSpeeds extends CalcPage {
   
         let FSform = this.generate_form([material_dropdown, tool_diameter_dropdown, tool_flute_number, RPM_dropdown])
         //injecting dd into html
-        
-        this.content_html.innerHTML = FSform + this.generate_button(this.calculateBtnID, "calculate", this.calculate.bind(this));
+
+        this.content_html.appendChild(FSform);
+        this.content_html.appendChild(this.generate_button(this.calculateBtnID, "calculate", this.calculate.bind(this))); // 
         
 
- 
         window.location.hash = this.title;
         
   
