@@ -35,7 +35,7 @@ export class CalcPage extends Page{
       //html component parts
       let label = document.createElement("label"); //creating label for dropdown
       label.setAttribute("for", `${html_id}`);
-      let label_text = document.createTextNode(`${html_id}`);
+      let label_text = document.createTextNode(`${html_id} :`);
       label.appendChild(label_text);
 
       let dropdown_content = document.createElement("select"); // creating drop down
@@ -55,40 +55,61 @@ export class CalcPage extends Page{
 
        // combinidng for html
       console.log(label,dropdown_content);
-      return label, dropdown_content; //!!!!!continue from here sort out generate forms()!!!!!!!
+      return [label, dropdown_content]; //!!!!!continue from here sort out generate forms()!!!!!!!
     }
 
     generate_input(html_id, type){ 
 
       //html component parts
-      let input_label = `<label for = "${html_id}">&nbsp &nbsp${html_id}:</label>\n`;
-      let input_start = `<input id="${html_id}" type = "${type}">\n`;
-      let input_end = `</input>\n`;
+      let label = document.createElement("label");
+      label.setAttribute("for", `${html_id}`)
+      let label_txt = document.createTextNode(`${html_id}`);
+      label.appendChild(label_txt);
+
+      let input = document.createElement("input");
+      input.setAttribute("id", `${html_id}`);
+      input.setAttribute("type", `${type}`);
 
        // combinidng strings for html
-      let input = input_label + input_start + input_end;
-      return input;
+      
+      return [label, input];
     }
 
     generate_form(inputs){
-      const form_start = "<form>";
-      let form_content = ""
-      const form_end = "</form>";
+      let form = document.createElement("form");
+      
+
       for (let i = 0; i < inputs.length; i++){
-        form_content += inputs[i];
-        form_content += "\n";
-        form_content += "<br>";
+        let br = document.createElement("br");
+        if (Array.isArray(inputs[i])){
+          for (let j = 0; j < inputs[i].length; j++){ //input may be an array of arrays
+            form.appendChild(inputs[i][j]);
+            form.appendChild(br)
+            
+            
+          }
+        }
+        else{
+          form.appendChild(br)
+          form.appendChild(inputs[i]);
+          
+        }
+        
       }
-      let form  = form_start + form_content + form_end;
       return form;
     }
 
     generate_results(){ // create a container for results
-      this.content_html.innerHTML += `<div id = "results"></div>`;
+      let results = document.createElement("div");
+      results.setAttribute("id", "results");
+      this.content_html.appendChild(results); //`<div id = "results"></div>`;
     }
 
     generate_button(id, text, func){ //generate button. adds buttons data as button : function pairs. make sure to bind function to classes this
-      let button = `<button type="button" id="${id}"> ${text}</button>`
+      let button = document.createElement("button")
+      button.setAttribute("id", `${id}`)
+      let but_text = document.createTextNode(text);
+      button.appendChild(but_text);
       this.buttons[id] = func
       return button;
     }

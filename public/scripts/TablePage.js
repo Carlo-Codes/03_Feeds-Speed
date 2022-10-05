@@ -35,8 +35,8 @@ export class TablePage extends Page {
                row.appendChild(cell) // add cell to row
                
             };
-            this.table_html.appendChild(row);
-            console.log(row); //debug
+            this.table_html.appendChild(row); //add rows to table
+            //console.log(row); //debug
          };
         
         
