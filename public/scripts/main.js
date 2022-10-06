@@ -4,10 +4,9 @@ import { ChipPage } from "./ChipPage.js";
 import { Page } from "./Page.js";
 import { FeedsSpeeds } from "./Feeds&Speeds.js";
 
-/* Notes to seld
+/* Notes to self
 TODO
-add feeds and speeds calc page
-adjust css & html to have proper containers 
+
 
 
 */

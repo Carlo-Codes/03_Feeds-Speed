@@ -19,7 +19,7 @@ export class FeedsSpeeds extends CalcPage {
       let flute_value = flute_no.value;
       let rpm_value = rpmDD.value
 
-      let selected_material_row = this.getDataRow(this.material_data, material_value);
+      let selected_material_row = this.getMaterialDataRow(this.material_data, material_value);
       let chipload = selected_material_row[toolD_value + "mm"];
 
       let feed_rate = chipload * rpm_value * flute_value;
@@ -30,10 +30,20 @@ export class FeedsSpeeds extends CalcPage {
 
     populate_results(fr,sd){ //populate the results container
       let results_html = document.getElementById("results");
-      results_html.innerHTML = "";
-      let feed_rate = `<div id = "feed_rate">${"Feed Rate = " + fr + "mm/min"}</div>`;
-      let stepdown = `<div id = "stepdown">${"Step Down = " + sd + "mm"}</div>`;
-      results_html.innerHTML = feed_rate + "\n" + stepdown;
+      results_html.replaceChildren();
+
+      let feed_rate = document.createElement("div");
+      feed_rate.setAttribute("id", "feedrate");
+      let frValue = document.createTextNode(`Feed Rate = ${fr} mm/min`);
+      feed_rate.appendChild(frValue);
+
+      let stepdown = document.createElement("div");
+      stepdown.setAttribute("id", "stepdown");
+      let sdValue = document.createTextNode(`Step Down = ${sd} mm/min`);
+      stepdown.appendChild(sdValue);
+
+      results_html.appendChild(feed_rate);
+      results_html.appendChild(stepdown);
     }
 
 

@@ -27,7 +27,7 @@ export class Page{ //should only use classes for status' and should make a class
       return data;
      };
 
-    getDataRow(data, value){ //get the row we want
+    getMaterialDataRow(data, value){ //get the row we want for materials
       let value_row;
       let rowData;
       for (let i = 0; i < data.length; i++){ //testing to see where the data row is we want based on value
@@ -45,13 +45,15 @@ export class Page{ //should only use classes for status' and should make a class
       this.table_html.replaceChildren();
      }
 
-     createTextElement_id(id, text){
-      let ele = document.createElement('div');
+     createTextElement_id(type = "div", id, text){
+      let ele = document.createElement(type);
       ele.setAttribute("id", id);
-      text = document.createTextNode(text);
-      ele.appendChild(text);
+      let txt = document.createTextNode(text);
+      ele.appendChild(txt);
       return ele;
      }
+
+
 
      render_content(){
       this.clearPage();

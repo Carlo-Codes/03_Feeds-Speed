@@ -103,5 +103,14 @@ h1 {
   
   }
 
+  #key {
+    padding : 5px;
+    font-weight: bold;
+  }
+
+  #value{
+    padding-right : 10px;
+  }
+
 
 

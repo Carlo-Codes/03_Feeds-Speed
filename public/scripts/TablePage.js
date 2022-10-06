@@ -13,7 +13,7 @@ export class TablePage extends Page {
         let headers = document.createElement("tbody");  
         headers.setAttribute("class", "column_header");
         let rows = []; // empty row data
-     
+
         for (let i = 0; i < columns.length; i++ ){
             let header_name = document.createElement("th")
             header_name.setAttribute("class","column_names");
@@ -24,7 +24,7 @@ export class TablePage extends Page {
 
         this.table_html.appendChild(headers); //inject headers into html
      
-        for (let i = 0; i < this.data.length; i++){ 
+        for (let i = 0; i < this.data.length; i++){ //for every row in table
             let values = Object.values(this.data[i])//1 row of data
             let row = document.createElement("tr");//create a row
 
