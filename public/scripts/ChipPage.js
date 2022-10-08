@@ -27,18 +27,25 @@ export class ChipPage extends CalcPage {
 
         
         let chipload = feed_rate / (rpm_value * flute_value);
-        chipload = chipload.toFixed(3) //cant really work out chipload across bit diamteres!?
+         //cant really work out chipload across bit diamteres!?
         
         let material_row = { // creating empty material row for insertion into materil db
             Material : material_value,
         };
         
+        material_row[toolD_value] = chipload.toFixed(3); //inserting chipload data
+
         for (let i = 0 ; i < this.tool_data.length; i++){
-            let bitDim = this.tool_data[i].Diameter + "mm" // finding possible tool dims
-            material_row[bitDim] = 0.000; //filling chiploads per tool diam with 0
+            let bitDim = this.tool_data[i].Diameter // finding possible tool dim from tool data
+            if(bitDim != toolD_value){ // if the rest of the tools arent the one we just calculated
+                let CLfactor = 1 + (bitDim - toolD_value)/10 //factor to aproximate rest of tool chipload
+                material_row[bitDim] = chipload * CLfactor; //filling chiploads per tool diam with 0
+                material_row[bitDim] = material_row[bitDim].toFixed(3)
+            }
         }
 
-        material_row[toolD_value + "mm"] = chipload; //inserting chipload data
+
+        
         
         console.log(material_row);
         this.populate_results(material_row);
@@ -47,6 +54,7 @@ export class ChipPage extends CalcPage {
 
       populate_results(material_row){ //populate the results container
         let results_html = document.getElementById("results");
+        let results_to_add =[]
         results_html.replaceChildren(); //clearing previous
 
         let keys = Object.keys(material_row) // getting keys
@@ -64,9 +72,12 @@ export class ChipPage extends CalcPage {
                 keyValue.appendChild(keySpan);
                 keyValue.appendChild(valueSpan);
                 
-                results_html.appendChild(keyValue);
+                results_to_add.push(keyValue);
             }
+
         }
+        let form = this.generate_form(results_to_add);
+        results_html.appendChild(form);
       }
 
     async render_content(){
