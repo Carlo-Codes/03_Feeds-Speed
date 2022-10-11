@@ -6,7 +6,10 @@ import { FeedsSpeeds } from "./Feeds&Speeds.js";
 
 /* Notes to self
 TODO
-
+ - //create a formular to aproximate chipload of other diamter bits based on metal/ plastic/ wood 
+ - post data to chipload data table
+ - somehow specify which ones are accurate chipload calculations and which is a guess.
+ - be able to change a chipload once you have run a test accuratley
 
 
 */
@@ -46,6 +49,8 @@ let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Ch
 let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
 
 
+
+
 function navEventHandler(e){
   let target = e.target.parentNode.id;
   for(let i =0; i < page_arrays.length; i++){
@@ -56,6 +61,9 @@ function navEventHandler(e){
   };
 
 }
+
+
+// below is great because this coupled with my CalcPage.generate_button(), i never have to worry about adding eventlisteners if i want to add a button
 
 function pg_btn_EventHandler(e){
   let target = e.target.id; // finding target of click

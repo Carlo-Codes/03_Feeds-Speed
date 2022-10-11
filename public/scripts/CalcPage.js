@@ -55,8 +55,8 @@ export class CalcPage extends Page{
       }
 
        // combinidng for html
-      console.log(label,dropdown_content);
-      return [label, dropdown_content]; //!!!!!continue from here sort out generate forms()!!!!!!!
+      
+      return [label, dropdown_content]; 
     }
 
     generate_input(html_id, type){ 

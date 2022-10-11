@@ -43,6 +43,13 @@ app.get('/chiploadInfo', (req, res) => {
     })
 });
 
+app.post('/chippost', (req, res) => {
+    
+
+    console.log("fired")
+    
+});
+
 app.listen(port, () => console.log('server running...'));
 
 

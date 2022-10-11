@@ -4,15 +4,19 @@ export class ChipPage extends CalcPage {
     constructor(html_button, homeUrl, data_fetch_url, title){
         super(html_button, homeUrl, data_fetch_url, title);
 
+        //INPUT IDS
         this.Feed_rt_input_id = "Feed Rate mm/m"
         this.material_input_id = "Material Name"
-
+        
+        //BUTTONS IDS
         this.calculateBtnID = "calculateCLBut"
-        this.tool_data;
+        this.postBtnID = "post"
+
+        this.tool_data; //empty tool data. data to be fetches
     }
 
-    calculate(){ // function for button
-        this.generate_results();
+    calculate(){ // function for button calculating chipload
+        
         let material =  document.getElementById(this.material_input_id);
         let toolDiamter = document.getElementById(this.tool_diameter_dropdown_id);
         let flute_no = document.getElementById(this.tool_flute_number_dropdown_id);
@@ -35,7 +39,7 @@ export class ChipPage extends CalcPage {
         
         material_row[toolD_value] = chipload.toFixed(3); //inserting chipload data
 
-        for (let i = 0 ; i < this.tool_data.length; i++){
+        for (let i = 0 ; i < this.tool_data.length; i++){// estimating the rest of the chiploads
             let bitDim = this.tool_data[i].Diameter // finding possible tool dim from tool data
             if(bitDim != toolD_value){ // if the rest of the tools arent the one we just calculated
                 let CLfactor = 1 + (bitDim - toolD_value)/10 //factor to aproximate rest of tool chipload
@@ -43,9 +47,6 @@ export class ChipPage extends CalcPage {
                 material_row[bitDim] = material_row[bitDim].toFixed(3)
             }
         }
-
-
-        
         
         console.log(material_row);
         this.populate_results(material_row);
@@ -60,25 +61,34 @@ export class ChipPage extends CalcPage {
         let keys = Object.keys(material_row) // getting keys
 
         let material = this.createTextElement_id("span", "material", material_row["Material"])
+
         results_html.appendChild(material) // creating and rendering material name element
 
         for (let i = 0; i < keys.length; i++){ // iterating through rest of object and displaying
             if (keys[i] !== "Material"){
-                let keySpan = this.createTextElement_id("span", "key", keys[i] + " :");
+                let keySpan = this.createTextElement_id("span", "key", keys[i] + " :"); //my method for making elements
                 let valueSpan = this.createTextElement_id("span", "value", material_row[keys[i]]);
                 
                 let keyValue = document.createElement("span")
                 keyValue.setAttribute("id", "keyvalue")
                 keyValue.appendChild(keySpan);
-                keyValue.appendChild(valueSpan);
-                
+                keyValue.appendChild(valueSpan);   
                 results_to_add.push(keyValue);
             }
-
         }
-        let form = this.generate_form(results_to_add);
+        let form = this.generate_form(results_to_add); //my method for making forms
         results_html.appendChild(form);
+
+        let post_button = this.generate_button(this.postBtnID, "Post", this.post_resutls.bind(this))
+        results_html.appendChild(post_button);
       }
+
+      async post_resutls(){
+        let res = await fetch (this.h_url + "chippost", {method : 'POST',});
+        let data = await res.json();
+        await console.log(data);
+        
+      };
 
     async render_content(){
 
@@ -95,10 +105,12 @@ export class ChipPage extends CalcPage {
 
        this.clearPage();
        this.content_html.appendChild(form);
+       this.generate_results();
 
        let titleTxtNode = document.createTextNode(this.title);
        this.title_html.appendChild(titleTxtNode);
        window.location.hash = this.title;
+
 
 
 
