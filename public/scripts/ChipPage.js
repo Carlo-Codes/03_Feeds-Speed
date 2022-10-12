@@ -13,6 +13,7 @@ export class ChipPage extends CalcPage {
         this.postBtnID = "post"
 
         this.tool_data; //empty tool data. data to be fetches
+        this.post_data;
     }
 
     calculate(){ // function for button calculating chipload
@@ -48,7 +49,7 @@ export class ChipPage extends CalcPage {
             }
         }
         
-        console.log(material_row);
+        this.post_data = material_row;
         this.populate_results(material_row);
       }
 
@@ -84,10 +85,12 @@ export class ChipPage extends CalcPage {
       }
 
       async post_resutls(){
-        let res = await fetch (this.h_url + "chippost", {method : 'POST',});
-        let data = await res.json();
-        await console.log(data);
-        
+        console.log(this.post_data);
+        let res = fetch (this.h_url + "chippost", {
+            method : 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body : JSON.stringify(this.post_data),
+        });        
       };
 
     async render_content(){

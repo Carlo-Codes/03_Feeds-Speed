@@ -20,6 +20,7 @@ dbCon.connect((err) => {
 });
 
 app.use(express.static('public'));
+app.use(express.json());
 
 
 
@@ -44,9 +45,12 @@ app.get('/chiploadInfo', (req, res) => {
 });
 
 app.post('/chippost', (req, res) => {
-    
+    //if (err) throw err
 
-    console.log("fired")
+    res.status(200);
+
+    let data = req.body
+    console.log(data)
     
 });
 
