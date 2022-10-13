@@ -85,12 +85,20 @@ export class ChipPage extends CalcPage {
       }
 
       async post_resutls(){
-        console.log(this.post_data);
-        let res = fetch (this.h_url + "chippost", {
-            method : 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body : JSON.stringify(this.post_data),
-        });        
+        if (!this.post_data.Material){
+            alert("Material must have a name to be posted")
+            return
+        }
+        if (confirm(`post ${this.post_data.Material} to the database?`) === true){
+            console.log(this.post_data);
+            let res = fetch (this.h_url + "chippost", {
+                method : 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body : JSON.stringify(this.post_data),
+            });    
+        }
+        console.log(res);
+          
       };
 
     async render_content(){

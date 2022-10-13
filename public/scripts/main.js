@@ -10,6 +10,11 @@ TODO
  - post data to chipload data table
  - somehow specify which ones are accurate chipload calculations and which is a guess.
  - be able to change a chipload once you have run a test accuratley
+ 
+ -add delete button to chipload rows
+ -add data tables of fav feeds and speeds (add and delete rows)
+ 
+ -add user & password functionaility add user ids to corresponding tables
 
 
 */

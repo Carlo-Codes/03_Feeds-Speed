@@ -30,7 +30,7 @@ app.get('/toolInfo', (req, res) => {
         if (err) throw err
         
         //console.log(result)
-        res.status(200).json(result)
+        res.status(200).send(result)
     })
 });
 
@@ -40,17 +40,25 @@ app.get('/chiploadInfo', (req, res) => {
         if (err) throw err
         
         //console.log(result)
-        res.status(200).json(result)
+        res.status(200).send(result)
     })
 });
 
 app.post('/chippost', (req, res) => {
-    //if (err) throw err
-
-    res.status(200);
+    
 
     let data = req.body
-    console.log(data)
+    let dataKeys = Object.keys(data)
+    let mysqlFunc = "";
+   
+    for (let i = 1; i < dataKeys.length; i++){
+
+        mysqlFunc += data[dataKeys[i]] + ", "
+    }
+    dbCon.query(`insert into ChipLoad(Material, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${data['Material']}', ${data['2']}, ${data['4']}, ${data['6']} , ${data['8']}, ${data['10']}, ${data['12']});`, (err, res) => {
+    
+    })
+    res.status(200);
     
 });
 
