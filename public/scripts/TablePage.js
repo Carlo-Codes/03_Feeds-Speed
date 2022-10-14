@@ -21,6 +21,8 @@ export class TablePage extends Page {
             header_name.appendChild(text);
             headers.appendChild(header_name)
         }
+         let button_col = this.createTextElement_id("th", "bnt_hdr","test"); //adding button columns for del etc
+         headers.appendChild(button_col);
 
         this.table_html.appendChild(headers); //inject headers into html
      
@@ -35,11 +37,17 @@ export class TablePage extends Page {
                row.appendChild(cell) // add cell to row
                
             };
+
+            let delete_row = function (){
+               let del_id = values["Material"]
+               console.log(i); // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!delete in msql
+            }
+
+            let delBtn = this.generate_button(`del${i}`, "Delete", delete_row);
+            row.appendChild(delBtn);
             this.table_html.appendChild(row); //add rows to table
             //console.log(row); //debug
          };
-        
-        
      };
 
       async render_content(){

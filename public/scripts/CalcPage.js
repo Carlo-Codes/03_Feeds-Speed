@@ -59,22 +59,7 @@ export class CalcPage extends Page{
       return [label, dropdown_content]; 
     }
 
-    generate_input(html_id, type){ 
 
-      //html component parts
-      let label = document.createElement("label");
-      label.setAttribute("for", `${html_id}`)
-      let label_txt = document.createTextNode(`${html_id}`);
-      label.appendChild(label_txt);
-
-      let input = document.createElement("input");
-      input.setAttribute("id", `${html_id}`);
-      input.setAttribute("type", `${type}`);
-
-       // combinidng strings for html
-      
-      return [label, input];
-    }
 
     generate_form(inputs){
       let form = document.createElement("form");
@@ -101,13 +86,6 @@ export class CalcPage extends Page{
       this.content_html.appendChild(results); //`<div id = "results"></div>`;
     }
 
-    generate_button(id, text, func){ //generate button. adds buttons data as button : function pairs. make sure to bind function to classes this
-      let button = document.createElement("button")
-      button.setAttribute("id", `${id}`)
-      let but_text = document.createTextNode(text);
-      button.appendChild(but_text);
-      this.buttons[id] = func
-      return button;
-    }
+
 
   }

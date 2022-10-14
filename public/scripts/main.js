@@ -40,7 +40,8 @@ let materialsBut = document.getElementById("Material_button");
 let toolBut =  document.getElementById("Tool_button");
 let chipBtn = document.getElementById("Chip_calculator");
 
-let content_html = document.getElementById("content")
+let content = document.getElementById("content_container")
+
 
 // could do a "create page" function that automates the below
 
@@ -88,7 +89,7 @@ function pg_btn_EventHandler(e){
 
 
 navBar.addEventListener("click", navEventHandler);
-content_html.addEventListener("click", pg_btn_EventHandler);
+content.addEventListener("click", pg_btn_EventHandler);
 
 
 

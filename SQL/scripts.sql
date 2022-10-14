@@ -17,7 +17,7 @@ Material varchar(255) NOT NULL,
 8mm float NOT NULL,
 10mm float NOT NULL,
 12mm float NOT NULL,
-UNIQUE(Material)
+constraint id primary key (Material)
 );
 
 CREATE TABLE Tools(
