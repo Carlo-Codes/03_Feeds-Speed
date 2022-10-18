@@ -84,8 +84,13 @@ h1 {
     padding: 20px;
 
   }
+
+  .addinput{
+    width: 50px;
+  }
   
   td {
+    width: fit-content;
     padding: 10px;
     border-color: white;
   }
@@ -111,6 +116,8 @@ h1 {
   #value{
     padding-right : 10px;
   }
+
+
 
 
 

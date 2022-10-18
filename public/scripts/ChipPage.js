@@ -97,7 +97,7 @@ export class ChipPage extends CalcPage {
                 body : JSON.stringify(this.post_data),
             });    
         }
-        console.log(res);
+        
           
       };
 
