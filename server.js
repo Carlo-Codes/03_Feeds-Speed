@@ -68,6 +68,14 @@ app.post('/delmatrow', (req, res) => {
     res.status(200);
 })
 
+app.post('/addmaterial', (req, res) =>{
+    let adddata = req.body
+    dbCon.query(`insert into ChipLoad(Material, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${adddata['Material']}', ${adddata['2mm']}, ${adddata['4mm']}, ${adddata['6mm']} , ${adddata['8mm']}, ${adddata['10mm']}, ${adddata['12mm']});`, (err, res) => {
+    if (err) throw err
+    })
+    res.status(200);
+})
+
 app.listen(port, () => console.log('server running...'));
 
 
