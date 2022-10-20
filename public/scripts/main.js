@@ -7,11 +7,11 @@ import { FeedsSpeeds } from "./Feeds&Speeds.js";
 /* Notes to self
 TODO
  - //create a formular to aproximate chipload of other diamter bits based on metal/ plastic/ wood 
- - post data to chipload data table
+ - //post data to chipload data table
  - somehow specify which ones are accurate chipload calculations and which is a guess.
  - be able to change a chipload once you have run a test accuratley
  
- -add delete button to chipload rows
+ -//add delete button to chipload rows
  -add data tables of fav feeds and speeds (add and delete rows)
  
  -add user & password functionaility add user ids to corresponding tables
@@ -27,8 +27,8 @@ const material_dataUrl = 'chiploadInfo';
 
 //Table Titles
 const tools_title = "Tools"
-const materials_title = "Chipload in mm (Material vs Tool Diameter)"
-const FS_title = "F&S"
+const materials_title = "Chipload (mm)"
+const FS_title = "Feeds & Speeds"
 const Chip_title = "Chip Load Calculator"
 
 
@@ -47,12 +47,12 @@ let content = document.getElementById("content_container")
 
 //pages
 let homePage = new Page(homeBut, homeUrl, "/", "Home");
-let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
+//let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
 let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
 let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
 
-let page_arrays = [homePage, toolPage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
+let page_arrays = [homePage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
 
 
 
