@@ -10,6 +10,7 @@ export class Page{ //should only use classes for status' and should make a class
       this.url = data_fetch_url;
       this.title = title;
       window.location.hash = title;
+      this.accessToken = ""
 
       //html elements
       this.table_html = document.getElementsByTagName("table")[0];
@@ -66,6 +67,7 @@ export class Page{ //should only use classes for status' and should make a class
     generate_button(id, text, func){ //generate button. adds buttons data as button : function pairs. make sure to bind function to classes this
       let button = document.createElement("button")
       button.setAttribute("id", `${id}`)
+      button.setAttribute("type", "button");
       let but_text = document.createTextNode(text);
       button.appendChild(but_text);
       this.buttons[id] = func
@@ -87,6 +89,34 @@ export class Page{ //should only use classes for status' and should make a class
        // combinidng strings for html
       
       return [label, input];
+
+      
     }
+
+    
+    generate_form(inputs){
+      let form = document.createElement("form");
+  
+      for (let i = 0; i < inputs.length; i++){
+        let br = document.createElement("br");
+        if (Array.isArray(inputs[i])){
+          for (let j = 0; j < inputs[i].length; j++){ //input may be an array of arrays
+            form.appendChild(inputs[i][j]);
+            form.appendChild(br)
+          }
+        }
+        else{
+          form.appendChild(br)
+          form.appendChild(inputs[i]);
+        }
+      }
+      return form;
+    }
+
+    //Authentication
+
+
+    
+
 
 };

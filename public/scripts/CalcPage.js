@@ -61,24 +61,6 @@ export class CalcPage extends Page{
 
 
 
-    generate_form(inputs){
-      let form = document.createElement("form");
-  
-      for (let i = 0; i < inputs.length; i++){
-        let br = document.createElement("br");
-        if (Array.isArray(inputs[i])){
-          for (let j = 0; j < inputs[i].length; j++){ //input may be an array of arrays
-            form.appendChild(inputs[i][j]);
-            form.appendChild(br)
-          }
-        }
-        else{
-          form.appendChild(br)
-          form.appendChild(inputs[i]);
-        }
-      }
-      return form;
-    }
 
     generate_results(){ // create a container for results
       let results = document.createElement("div");

@@ -77,7 +77,7 @@ export class TablePage extends Page {
                input_type = "text"
             } else {
                input_type = "number"
-               step = "0.01"
+               step = "0.05"
             }
             //creating add data cells for adding data
             let cellInput = this.generate_input(`input${columns[i]}`, input_type); // creating inputs to inject into cells

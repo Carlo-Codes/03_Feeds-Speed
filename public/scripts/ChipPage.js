@@ -16,7 +16,7 @@ export class ChipPage extends CalcPage {
         this.post_data;
     }
 
-    calculate(){ // function for button calculating chipload
+    calculateCL(){ // function for button calculating chipload
         
         let material =  document.getElementById(this.material_input_id);
         let toolDiamter = document.getElementById(this.tool_diameter_dropdown_id);
@@ -109,7 +109,7 @@ export class ChipPage extends CalcPage {
        let tool_diameter_dropdown = this.generate_dropdown(this.tool_diameter_dropdown_id, this.tool_data, "Diameter");
        let tool_flute_number = this.generate_dropdown(this.tool_flute_number_dropdown_id, this.flute_data, "flute");
        let RPM_dropdown = this.generate_dropdown(this.rpm_dropdown_id, this.RPM_data, "RPM");
-       let calculateBut = this.generate_button(this.calculateBtnID, "Calculate", this.calculate.bind(this)); // bind(this) keeps function bound to scope of the class when stored in buttons objects for event listener
+       let calculateBut = this.generate_button(this.calculateBtnID, "Calculate", this.calculateCL.bind(this)); // bind(this) keeps function bound to scope of the class when stored in buttons objects for event listener
 
 
        let form = this.generate_form([mtrlTxtBx, feedbx, tool_diameter_dropdown, tool_flute_number, RPM_dropdown, calculateBut]);

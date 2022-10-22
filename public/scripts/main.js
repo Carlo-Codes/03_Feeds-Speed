@@ -3,18 +3,21 @@ import { TablePage } from "./TablePage.js";
 import { ChipPage } from "./ChipPage.js";
 import { Page } from "./Page.js";
 import { FeedsSpeeds } from "./Feeds&Speeds.js";
+import {loginPage} from "./Login.js"
 
 /* Notes to self
 TODO
  - //create a formular to aproximate chipload of other diamter bits based on metal/ plastic/ wood 
  - //post data to chipload data table
- - somehow specify which ones are accurate chipload calculations and which is a guess.
+ - choose to guess the rest of the chip load or not
  - be able to change a chipload once you have run a test accuratley
  
  -//add delete button to chipload rows
- -add data tables of fav feeds and speeds (add and delete rows)
+ -*add data tables of fav feeds and speeds (add and delete rows)
  
  -add user & password functionaility add user ids to corresponding tables
+    --register new user api done - need to ensure its an email etc
+    --next do a login
 
 
 */
@@ -32,7 +35,7 @@ const FS_title = "Feeds & Speeds"
 const Chip_title = "Chip Load Calculator"
 
 
-//html Elements
+//html Elements// all wrong - learning as i go but should hav created all these in js 
 let navBar = document.getElementById("nav");
 let homeBut = document.getElementById("Home_but");
 let feedSpeedsBut = document.getElementById("FeedSpeed_button");
@@ -46,13 +49,14 @@ let content = document.getElementById("content_container")
 // could do a "create page" function that automates the below
 
 //pages
+let login  = new loginPage(null,homeUrl, "login", "Login")
 let homePage = new Page(homeBut, homeUrl, "/", "Home");
 //let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
 let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
 let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
 
-let page_arrays = [homePage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
+let page_arrays = [login, homePage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
 
 
 
@@ -90,7 +94,10 @@ function pg_btn_EventHandler(e){
 
 navBar.addEventListener("click", navEventHandler);
 content.addEventListener("click", pg_btn_EventHandler);
+document.body.addEventListener("click", pg_btn_EventHandler);
 
+
+login.render_content();
 
 
 
