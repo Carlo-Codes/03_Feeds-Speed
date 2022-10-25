@@ -43,6 +43,8 @@ async function authenticateCredentials(req, res, next){
     let credentials = atob(authheader.split(" ")[1]);
     let username = credentials.split(":")[0]
     let password = credentials.split(":")[1]
+
+   
     
     let db_email = ""
     let db_pswrd = ""
@@ -50,28 +52,36 @@ async function authenticateCredentials(req, res, next){
     dbCon.query(`select * from users where email = '${username}';`, async (err, results) => {
         if(err) throw err;
 
-        
-        db_email = results[0].email
+        db_email =  results[0].email
+
         db_pswrd = results[0].pswd
+    
+        console.log("database email =" + db_email)
+        console.log("supplied email ="+ username)
         bcryptResult = await bcrypt.compare(password,db_pswrd)
+        console.log(bcryptResult)
+    
+        
+        
+        let token = ""
+        let authroised = false
+        if (db_email === username && bcryptResult === true){
+            console.log("check has fired.")
+            authroised =  true
+            token = createToken(`${username}:${password}`)
+        }
+        
+        let authPackage = {credentials:{
+            username:username,
+            authroised:authroised,
+            token: token}}
+    
+        req.authPackage = authPackage
+        next();
+
     })
 
-    console.log(bcryptResult)
-    
-    let token = ""
-    let authroised = false
-    if (db_email === username && bcryptResult === true){
-        authroised =  true
-        token = createToken(`${username}:${password}`)
-    }
-    
-    let authPackage = {credentials:{
-        username:username,
-        authroised:authroised,
-        token: token}}
 
-    req.authPackage = authPackage
-    next();
 
 }
 
@@ -81,7 +91,8 @@ async function storeuserdata(req, res, next){
     let credentials = atob(authheader.split(" ")[1]);
     let email = credentials.split(":")[0]
     let password = credentials.split(":")[1]
-    bcrypt.hash(password, saltRounds, function (err, hash){
+    bcrypt.hash(password, saltRounds, (err, hash) => {
+        if (err) throw err;
         dbCon.query(`insert into users(email, pswd) values ('${email}', '${hash}');`,(err, result) => {
             if(err) throw err
         })
@@ -183,7 +194,7 @@ app.post('/newuser',storeuserdata , (req, res) => {
 
     let authheader = req.headers['auth']
     let credentials = atob(authheader.split(" ")[1]);
-    console.log(credentials);
+    
     let token = createToken(credentials);
     res.send(JSON.stringify({accessToken:token}));
 

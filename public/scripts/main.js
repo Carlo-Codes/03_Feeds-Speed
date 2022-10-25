@@ -16,8 +16,9 @@ TODO
  -*add data tables of fav feeds and speeds (add and delete rows)
  
  -add user & password functionaility add user ids to corresponding tables
-    --register new user api done - need to ensure its an email etc
-    --next do a login
+    --Caant get bcrypt to return true -- start here
+
+  
 
 
 */

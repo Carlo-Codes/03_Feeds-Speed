@@ -32,6 +32,7 @@ export class loginPage extends Page{
           body : JSON.stringify({test:"suceesful123"})
         })
         let token = res.json()
+        console.log(password)
         return token
       }
 
