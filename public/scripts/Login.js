@@ -17,18 +17,44 @@ export class loginPage extends Page{
 
     this.checkuserexistsURL = 'checkuserexists'
 
-    this.loginstatus = true
+    this.dbUserId;
 
     document.body.append(this.login_container);
     document.body.append(this.button_container);
     }
+
+    getcookievalue(name){
+      let cookies = document.cookie
+      let splitcookies = cookies.split(";");
+      for (let i =0; i < splitcookies.length; i++){
+        let target = splitcookies[i];
+        if (target.indexOf(name)!== -1){
+          let cookie = target.split("=")[1]
+          return cookie
+        }
+      }
+
+    }
+
+    displayErr(text){
+
+      if(document.getElementById("error")){
+        let oldErr = document.getElementById("error")
+        oldErr.remove()
+        let newErr = this.createTextElement_id("div","error",text);
+        this.login_container.append(newErr);
+    } else{
+        let newErr = this.createTextElement_id("div","error",text);
+        this.login_container.append(newErr);
+    }
+  }
 
 
     async newusertoken(username, password, url) {
         let res =  await fetch(url, {
           method: "POST",
           headers: {'Content-Type': 'application/json',
-                    auth: `Basic ${btoa(username +":"+ password)}`},
+                    auth: `Basic ${btoa(username.toLowerCase() +":"+ password)}`},
           body : JSON.stringify({test:"suceesful123"})
         })
         let token = res.json()
@@ -40,15 +66,13 @@ export class loginPage extends Page{
     async newuser(username, password){
         let token = await this.newusertoken(username, password, this.h_url + this.newuserAPI);
         document.cookie = `token=${token.accessToken}`
-        this.accessToken = token.accessToken;
-        console.log(token.accessToken);
     }
 
     async checkuserexists(username){
       let exists = await fetch(this.h_url + this.checkuserexistsURL,{
         method: "POST",
         headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify({username:username}),
+        body: JSON.stringify({username:username.toLowerCase()}),
       })
       let exists_check = exists.json();
       return exists_check;
@@ -60,19 +84,19 @@ export class loginPage extends Page{
       let pass = true
 
       if (username.length < 3 || username.indexOf('@') === -1){
-        alert("invalid email adress")
+        this.displayErr("Invalid Email adress")
         pass = false
         return
       }
 
       if (password.length < 5){
-        alert("password must be more than 5 characters")
+        this.displayErr("Password must be 5 charaters or more")
         pass = false
         return
       }
         
       if (password !== password2){
-        alert("Passwords do not match")
+        this.displayErr("Passwords do not match")
         pass = false
         return
       }
@@ -90,7 +114,7 @@ export class loginPage extends Page{
         let exists_check = await this.checkuserexists(email);
 
         if (exists_check.body === 1){
-          alert("User already exist");
+          this.displayErr(`User ${email} already exists`)
           return
         }
 
@@ -100,12 +124,8 @@ export class loginPage extends Page{
 
           this.newuser(email,password);
           alert("new user created");
-
         } 
 
-
-
-        
     }
 
     async newlogintoken(){
@@ -114,14 +134,34 @@ export class loginPage extends Page{
 
       let exists_check = await this.checkuserexists(email);
 
-      if (exists_check.body === 1){
+      if (email.length < 3 || email.indexOf('@') === -1){
+        this.displayErr("invalid email adress")
+        return
+
+      } else if (exists_check.body === 1){
         let res = await this.newusertoken(email, password, this.h_url + 'newlogin')
+        console.log(res)
+        this.dbUserId = res.credentials.userID;
+        document.cookie = `token=${res.credentials.token}`
         
-        //document.cookie = `token=${token.accessToken}`
-        console.log(res);
+
+      }else {
+        this.displayErr("div","error",`User ${email} Doesn't Exist`)
       }
 
 
+    }
+
+    async loginWithToken(){
+      document.cookie = "test=testestes"
+      let token = this.getcookievalue("token");
+      console.log(token) 
+      let res = await fetch(this.h_url + "tokenlogin", {
+        method:"GET",
+        auth : token,
+      });
+
+      console.log(res)///finish off logging in on with token
     }
 
     login_form(){
@@ -170,6 +210,8 @@ export class loginPage extends Page{
     this.button_container.append(loginbtn);
     this.button_container.append(this.htmlbreak);
     this.button_container.append(singupbtn);
+
+    this.button_container.append(this.generate_button("test","test",this.loginWithToken.bind(this)));
     
   
     

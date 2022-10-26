@@ -26,7 +26,6 @@ function createToken(credentials){
 function authToken(req, res, next){
     let authheader = req.headers['auth']
     let token = authheader.split(" ")[1];
-    let tokenString = toString(token)
 
     if (token === null) return res.status(403)
 
@@ -43,8 +42,6 @@ async function authenticateCredentials(req, res, next){
     let credentials = atob(authheader.split(" ")[1]);
     let username = credentials.split(":")[0]
     let password = credentials.split(":")[1]
-
-   
     
     let db_email = ""
     let db_pswrd = ""
@@ -55,18 +52,17 @@ async function authenticateCredentials(req, res, next){
         db_email =  results[0].email
 
         db_pswrd = results[0].pswd
+
+        let db_id = results[0].id
     
-        console.log("database email =" + db_email)
-        console.log("supplied email ="+ username)
+        //console.log("database email =" + db_email)
+        //console.log("supplied email ="+ username)
         bcryptResult = await bcrypt.compare(password,db_pswrd)
         console.log(bcryptResult)
-    
-        
-        
+
         let token = ""
         let authroised = false
         if (db_email === username && bcryptResult === true){
-            console.log("check has fired.")
             authroised =  true
             token = createToken(`${username}:${password}`)
         }
@@ -74,15 +70,12 @@ async function authenticateCredentials(req, res, next){
         let authPackage = {credentials:{
             username:username,
             authroised:authroised,
-            token: token}}
+            token: token,
+            userID: db_id}}
     
         req.authPackage = authPackage
         next();
-
     })
-
-
-
 }
 
 async function storeuserdata(req, res, next){
@@ -96,8 +89,6 @@ async function storeuserdata(req, res, next){
         dbCon.query(`insert into users(email, pswd) values ('${email}', '${hash}');`,(err, result) => {
             if(err) throw err
         })
-        console.log(hash);
-        console.log(password);
     }
     )
     next();
