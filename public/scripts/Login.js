@@ -4,6 +4,8 @@ export class loginPage extends Page{
     constructor(html_button, homeUrl, data_fetch_url, title){
     super(html_button, homeUrl, data_fetch_url, title);
 
+
+    //html elements admin
     this.newuserAPI = "newuser"
     this.login_container = document.createElement("div");
     this.login_container.setAttribute("id", "login_container")
@@ -17,13 +19,13 @@ export class loginPage extends Page{
 
     this.checkuserexistsURL = 'checkuserexists'
 
-    this.dbUserId;
+    this.dbUserId; //for use when filtereing entire db
 
     document.body.append(this.login_container);
     document.body.append(this.button_container);
     }
 
-    getcookievalue(name){
+    getcookievalue(name){ // getting cooking from the db browser
       let cookies = document.cookie
       let splitcookies = cookies.split(";");
       for (let i =0; i < splitcookies.length; i++){
@@ -36,7 +38,7 @@ export class loginPage extends Page{
 
     }
 
-    displayErr(text){
+    displayErr(text){ //displays errors udnder the loging container
 
       if(document.getElementById("error")){
         let oldErr = document.getElementById("error")
@@ -50,7 +52,7 @@ export class loginPage extends Page{
   }
 
 
-    async newusertoken(username, password, url) {
+    async newusertoken(username, password, url) { //creat new token given api url
         let res =  await fetch(url, {
           method: "POST",
           headers: {'Content-Type': 'application/json',
@@ -63,12 +65,12 @@ export class loginPage extends Page{
       }
 
 
-    async newuser(username, password){
+    async newuser(username, password){ //creates as new token while creating a new user in the db sdee server
         let token = await this.newusertoken(username, password, this.h_url + this.newuserAPI);
         document.cookie = `token=${token.accessToken}`
     }
 
-    async checkuserexists(username){
+    async checkuserexists(username){ // check to see if user exists 
       let exists = await fetch(this.h_url + this.checkuserexistsURL,{
         method: "POST",
         headers: {'Content-Type': 'application/json'},
@@ -79,7 +81,7 @@ export class loginPage extends Page{
 
     }
 
-    credentialsInputCheck(username, password, password2=password){
+    credentialsInputCheck(username, password, password2=password){ //for login in, checks login crdedentials against database
 
       let pass = true
 
@@ -106,7 +108,7 @@ export class loginPage extends Page{
       return pass
     }
 
-    async register(){
+    async register(){ // siging up a new user
         let email = document.getElementById(this.email_ID).value;
         let password = document.getElementById(this.password_ID).value;
         let retypePW = document.getElementById(this.retypePasswors_ID).value;
@@ -146,7 +148,7 @@ export class loginPage extends Page{
         
 
       }else {
-        this.displayErr("div","error",`User ${email} Doesn't Exist`)
+        this.displayErr(`User ${email} Doesn't Exist`)
       }
 
 
@@ -157,8 +159,10 @@ export class loginPage extends Page{
       let token = this.getcookievalue("token");
       console.log(token) 
       let res = await fetch(this.h_url + "tokenlogin", {
-        method:"GET",
-        auth : token,
+        method:"POST",
+        headers: {'Content-Type': 'application/json',
+        auth : token,}
+        
       });
 
       console.log(res)///finish off logging in on with token

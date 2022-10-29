@@ -14,6 +14,48 @@ const secret = process.env.TOKEN_SECRET;
 
 //Server functions
 
+async function retrieveUser(username, callback) {
+    dbCon.query(`select * from users where email = '${username}';`, (err, results) => {
+        if(err) throw err;
+        return callback(results);
+        //////problems is we cant get the auth packa out of this function
+    })
+
+}
+
+async function authenticateCredentials(username, password, dbRecord, callback){
+    let bcryptResult = false
+
+    let db_email =  dbRecord[0].email
+
+    let db_pswrd = dbRecord[0].pswd
+
+    let db_id = dbRecord[0].id
+
+    //console.log(db_id)
+
+    //console.log("database email =" + db_email)
+    //console.log("supplied email ="+ username)
+    bcryptResult = await bcrypt.compare(password,db_pswrd)
+
+    let token = ""
+    let authroised = false
+    if (db_email === username && bcryptResult === true){
+        authroised =  true
+        token = createToken(`${username}:${password}`)
+    }
+    
+     authPackage = {credentials:{
+        username:username,
+        authroised:authroised,
+        token: token,
+        userID: db_id}}
+        
+  
+    return callback(authPackage)
+}
+
+
 function createToken(credentials){
     
     let options = {
@@ -23,59 +65,22 @@ function createToken(credentials){
     return token;
 }
 
-function authToken(req, res, next){
-    let authheader = req.headers['auth']
-    let token = authheader.split(" ")[1];
 
-    if (token === null) return res.status(403)
-
-    jswt.verify(token,secret, (err, credentials) => {
-        if (err) return res.status(403)
-        req.auth = credentials
-    })
-    next()
-    
-};
-
-async function authenticateCredentials(req, res, next){
+async function authenticateCredentialsMiddle(req, res){
     let authheader = req.headers['auth']
     let credentials = atob(authheader.split(" ")[1]);
     let username = credentials.split(":")[0]
     let password = credentials.split(":")[1]
     
-    let db_email = ""
-    let db_pswrd = ""
-    let bcryptResult = false
-    dbCon.query(`select * from users where email = '${username}';`, async (err, results) => {
-        if(err) throw err;
+    let dbresults = await retrieveUser(username);
 
-        db_email =  results[0].email
 
-        db_pswrd = results[0].pswd
-
-        let db_id = results[0].id
+    let authPackage = await authenticateCredentials(username,password, dbresults);
     
-        //console.log("database email =" + db_email)
-        //console.log("supplied email ="+ username)
-        bcryptResult = await bcrypt.compare(password,db_pswrd)
-        console.log(bcryptResult)
+    return authPackage
 
-        let token = ""
-        let authroised = false
-        if (db_email === username && bcryptResult === true){
-            authroised =  true
-            token = createToken(`${username}:${password}`)
-        }
-        
-        let authPackage = {credentials:{
-            username:username,
-            authroised:authroised,
-            token: token,
-            userID: db_id}}
     
-        req.authPackage = authPackage
-        next();
-    })
+    
 }
 
 async function storeuserdata(req, res, next){
@@ -191,14 +196,55 @@ app.post('/newuser',storeuserdata , (req, res) => {
 
 })
 
-app.post('/tokenlogin', authToken, (req, res) => {
+app.post('/tokenlogin', async (req, res) => {
 
+    let authheader = req.headers["auth"]
+    
+    let token = authheader.split(" ")[0];
+    
+    if (token === null) return res.status(403)
+
+    let decoded = jswt.verify(token,secret);
+    let username = decoded.split(":")[0]
+    let password = decoded.split(":")[1]
+
+    let authPackage = await retrieveUser(username, async (results) => {
+        console.log("database results in call back = " + results[0])
+         await authenticateCredentials(username,password,results, async (authpackage) => {
+            console.log("auth package in secound call back = " + JSON.stringify(authpackage))
+            res.send(req.authpackage)
+            return await authpackage
+            
+         })
+    })
+    
+    console.log("api authpackage = " + authPackage);
+    
+    
+    
+   
 })
 
-app.post('/newlogin', authenticateCredentials,(req, res)=>{
-    let credentials = req.authPackage
+app.post('/newlogin',async (req, res)=>{
+    let authheader = req.headers['auth']
+    let credentials = atob(authheader.split(" ")[1]);
+    let username = credentials.split(":")[0]
+    let password = credentials.split(":")[1]
+
+    console.log(username + password)
+
+    let authPackage = await retrieveUser(username, async (results) => {
+        console.log("database results in call back = " + results[0])
+         await authenticateCredentials(username,password,results, async (authpackage) => {
+            console.log("auth package in secound call back = " + JSON.stringify(authpackage))
+            res.send(req.authpackage)
+            return await authpackage
+            
+         })
+    })
     
-    res.status(200).send(credentials);
+    
+    
 })
 
 
