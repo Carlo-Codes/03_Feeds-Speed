@@ -59,7 +59,7 @@ export class loginPage extends Page{
                     auth: `Basic ${btoa(username.toLowerCase() +":"+ password)}`},
           body : JSON.stringify({test:"suceesful123"})
         })
-        let token = res.json()
+        let token = res
         console.log(password)
         return token
       }
@@ -142,9 +142,10 @@ export class loginPage extends Page{
 
       } else if (exists_check.body === 1){
         let res = await this.newusertoken(email, password, this.h_url + 'newlogin')
+        res = res.json();
         console.log(res)
-        this.dbUserId = res.credentials.userID;
-        document.cookie = `token=${res.credentials.token}`
+        this.dbUserId = res.userID;
+        document.cookie = `token=${res.token}`
         
 
       }else {
@@ -165,7 +166,7 @@ export class loginPage extends Page{
         
       });
 
-      console.log(res)///finish off logging in on with token
+      console.log(res.json())///finish off logging in on with token
     }
 
     login_form(){

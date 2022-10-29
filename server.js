@@ -237,11 +237,13 @@ app.post('/newlogin',async (req, res)=>{
         console.log("database results in call back = " + results[0])
          await authenticateCredentials(username,password,results, async (authpackage) => {
             console.log("auth package in secound call back = " + JSON.stringify(authpackage))
-            res.send(req.authpackage)
+            res.send(JSON.stringify(authpackage))
             return await authpackage
             
          })
     })
+
+    console.log(authPackage)
     
     
     
