@@ -52,22 +52,23 @@ export class loginPage extends Page{
   }
 
 
-    async newusertoken(username, password, url) { //creat new token given api url
+    async newusertoken(username, password, url, callback) { //creat new token given api url
         let res =  await fetch(url, {
           method: "POST",
           headers: {'Content-Type': 'application/json',
                     auth: `Basic ${btoa(username.toLowerCase() +":"+ password)}`},
           body : JSON.stringify({test:"suceesful123"})
         })
-        let token = res
-        console.log(password)
-        return token
+        let authpackage = res
+        return callback(authpackage)
       }
 
 
     async newuser(username, password){ //creates as new token while creating a new user in the db sdee server
-        let token = await this.newusertoken(username, password, this.h_url + this.newuserAPI);
-        document.cookie = `token=${token.accessToken}`
+        let token = await this.newusertoken(username, password, this.h_url + this.newuserAPI, (authpackage) => {
+          document.cookie = `token=${token.accessToken}`
+        });
+        
     }
 
     async checkuserexists(username){ // check to see if user exists 
@@ -141,23 +142,30 @@ export class loginPage extends Page{
         return
 
       } else if (exists_check.body === 1){
-        let res = await this.newusertoken(email, password, this.h_url + 'newlogin')
-        res = res.json();
-        console.log(res)
-        this.dbUserId = res.userID;
-        document.cookie = `token=${res.token}`
+        let res = await this.newusertoken(email, password, this.h_url + 'newlogin', (authpackage)=>{
+          
+          this.dbUserId = authpackage.userID;
+
+  
+          console.log(authpackage)
+          
+          document.cookie = `token=${authpackage.token}`
+
+        })
+
         
 
       }else {
         this.displayErr(`User ${email} Doesn't Exist`)
       }
-
+      
 
     }
 
     async loginWithToken(){
       document.cookie = "test=testestes"
       let token = this.getcookievalue("token");
+  
       console.log(token) 
       let res = await fetch(this.h_url + "tokenlogin", {
         method:"POST",
