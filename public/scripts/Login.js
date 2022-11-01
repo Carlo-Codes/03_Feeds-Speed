@@ -25,18 +25,7 @@ export class loginPage extends Page{
     document.body.append(this.button_container);
     }
 
-    getcookievalue(name){ // getting cooking from the db browser
-      let cookies = document.cookie
-      let splitcookies = cookies.split(";");
-      for (let i =0; i < splitcookies.length; i++){
-        let target = splitcookies[i];
-        if (target.indexOf(name)!== -1){
-          let cookie = target.split("=")[1]
-          return cookie
-        }
-      }
 
-    }
 
     displayErr(text){ //displays errors udnder the loging container
 
@@ -142,14 +131,16 @@ export class loginPage extends Page{
         return
 
       } else if (exists_check.body === 1){
-        let res = await this.newusertoken(email, password, this.h_url + 'newlogin', (authpackage)=>{
+        let res = await this.newusertoken(email, password, this.h_url + 'newlogin', async (authpackage)=>{
           
           this.dbUserId = authpackage.userID;
 
-  
-          console.log(authpackage)
+
+
+          let resolvedauthpackage = await authpackage.json()
+          console.log(resolvedauthpackage.credentials.token)
           
-          document.cookie = `token=${authpackage.token}`
+          document.cookie = `token=${resolvedauthpackage.credentials.token}`
 
         })
 
@@ -162,9 +153,10 @@ export class loginPage extends Page{
 
     }
 
-    async loginWithToken(){
+    async loginWithToken(callback = function() {}){
       document.cookie = "test=testestes"
       let token = this.getcookievalue("token");
+      console.log("token clientside = " + token)
   
       console.log(token) 
       let res = await fetch(this.h_url + "tokenlogin", {
@@ -174,7 +166,14 @@ export class loginPage extends Page{
         
       });
 
-      console.log(res.json())///finish off logging in on with token
+      let auth = await res.json()
+      console.log(auth)///if some error, return err handle
+      console.log
+      if (auth.credentials.token === null || auth.credentials.token === false){
+        console.log("not authorised")
+        return callback()
+      }
+      
     }
 
     login_form(){

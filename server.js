@@ -55,7 +55,6 @@ async function authenticateCredentials(username, password, dbRecord, callback){
     return callback(authPackage)
 }
 
-
 function createToken(credentials){
     
     let options = {
@@ -63,24 +62,6 @@ function createToken(credentials){
     }
     token = jswt.sign(credentials,secret,options)
     return token;
-}
-
-
-async function authenticateCredentialsMiddle(req, res){
-    let authheader = req.headers['auth']
-    let credentials = atob(authheader.split(" ")[1]);
-    let username = credentials.split(":")[0]
-    let password = credentials.split(":")[1]
-    
-    let dbresults = await retrieveUser(username);
-
-
-    let authPackage = await authenticateCredentials(username,password, dbresults);
-    
-    return authPackage
-
-    
-    
 }
 
 async function storeuserdata(req, res, next){
@@ -99,7 +80,28 @@ async function storeuserdata(req, res, next){
     next();
 }
 
-//
+async function authetnicateToken(token, callback){
+    try {
+        let decoded = jswt.verify(token,secret);
+        let username = decoded.split(":")[0]
+        let password = decoded.split(":")[1]
+    
+        let auth = await retrieveUser(username, async (results) => {
+             await authenticateCredentials(username,password,results, async (authpackage) => {
+                return callback(authpackage)
+             })
+        })
+    }
+    catch {
+        let errorPackage = {credentials:{
+            username:null,
+            authroised:false,
+            token: null,
+            userID: null}}
+        return callback(errorPackage)
+    }
+
+}
 
 //API
 var dbCon = mysql.createConnection({
@@ -117,8 +119,6 @@ dbCon.connect((err) => {
 
 app.use(express.static('public'));
 app.use(express.json());
-
-
 
 app.get('/toolInfo', (req, res) => {
     
@@ -199,30 +199,18 @@ app.post('/newuser',storeuserdata , (req, res) => {
 app.post('/tokenlogin', async (req, res) => {
 
     let authheader = req.headers["auth"]
-    
     let token = authheader.split(" ")[0];
+    
     
     if (token === null) return res.status(403)
 
-    let decoded = jswt.verify(token,secret);
-    let username = decoded.split(":")[0]
-    let password = decoded.split(":")[1]
 
-    let authPackage = await retrieveUser(username, async (results) => {
-        console.log("database results in call back = " + results[0])
-         await authenticateCredentials(username,password,results, async (authpackage) => {
-            console.log("auth package in secound call back = " + JSON.stringify(authpackage))
-            res.send(req.authpackage)
-            return await authpackage
-            
-         })
+    authetnicateToken(token, (authPackage)=>{
+        res.send(JSON.stringify(authPackage))
+        console.log(authPackage)
     })
-    
-    console.log("api authpackage = " + authPackage);
-    
-    
-    
-   
+
+       
 })
 
 app.post('/newlogin',async (req, res)=>{
@@ -247,8 +235,8 @@ app.post('/newlogin',async (req, res)=>{
     
     
     
+    
 })
-
 
 app.listen(port, () => console.log('server running...'));
 

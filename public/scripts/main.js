@@ -24,6 +24,22 @@ TODO
 */
 
 
+
+
+//UTILs
+function getcookievalue(name){ // getting cooking from the db browser
+  let cookies = document.cookie
+  let splitcookies = cookies.split(";");
+  for (let i =0; i < splitcookies.length; i++){
+    let target = splitcookies[i];
+    if (target.indexOf(name)!== -1){
+      let cookie = target.split("=")[1]
+      return cookie
+    }
+  }
+}
+
+
 // URLS
 const homeUrl = 'http://localhost:7800/';
 const tool_dataUrl = 'toolInfo';
@@ -43,22 +59,24 @@ let feedSpeedsBut = document.getElementById("FeedSpeed_button");
 let materialsBut = document.getElementById("Material_button");
 let toolBut =  document.getElementById("Tool_button");
 let chipBtn = document.getElementById("Chip_calculator");
+let accountbtn = document.getElementById("account")
 
 let content = document.getElementById("content_container")
+
 
 
 // could do a "create page" function that automates the below
 
 //pages
-let login  = new loginPage(null,homeUrl, "login", "Login")
+let login  = new loginPage(accountbtn,homeUrl, "login", "Login")
 let homePage = new Page(homeBut, homeUrl, "/", "Home");
 //let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
 let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
 let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
 
-let page_arrays = [login, homePage, materialsPage, feedsSpeedsPg, chippg]; // add pages here after init for eventlisteners
-
+let page_arrays = [homePage, materialsPage, feedsSpeedsPg, chippg, login]; // add pages here after init for eventlisteners
+///bug here with login -- need a login page button
 
 
 
@@ -98,7 +116,17 @@ content.addEventListener("click", pg_btn_EventHandler);
 document.body.addEventListener("click", pg_btn_EventHandler);
 
 
-login.render_content();
+
+let token = getcookievalue("token");
+
+if(token === null || token === undefined){
+  login.render_content(); //if theres no token in cookies, render login page
+}else{
+  login.loginWithToken(()=>{ // if there is, try to log in with it
+    document.cookie = `token=`
+    login.render_content();// callback(){if the token from server comes back false or null, render the login page}
+  });
+}
 
 
 

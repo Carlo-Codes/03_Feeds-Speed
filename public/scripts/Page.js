@@ -116,7 +116,18 @@ export class Page{ //should only use classes for status' and should make a class
 
     //Authentication
 
-
+    
+    getcookievalue(name){ // getting cooking from the db browser
+      let cookies = document.cookie
+      let splitcookies = cookies.split(";");
+      for (let i =0; i < splitcookies.length; i++){
+        let target = splitcookies[i];
+        if (target.indexOf(name)!== -1){
+          let cookie = target.split("=")[1]
+          return cookie
+        }
+      }
+    }
     
 
 
