@@ -39,6 +39,19 @@ function getcookievalue(name){ // getting cooking from the db browser
   }
 }
 
+function authroriseToken(){
+  let token = getcookievalue("token");
+
+  if(token === null || token === undefined){
+    login.render_content(); //if theres no token in cookies, render login page
+  }else{
+    login.loginWithToken(()=>{ // if there is, try to log in with it
+      document.cookie = `token=`
+      login.render_content();// callback(){if the auth from server comes back false or null, render the login page}
+    });
+}
+}
+
 
 // URLS
 const homeUrl = 'http://localhost:7800/';
@@ -59,7 +72,7 @@ let feedSpeedsBut = document.getElementById("FeedSpeed_button");
 let materialsBut = document.getElementById("Material_button");
 let toolBut =  document.getElementById("Tool_button");
 let chipBtn = document.getElementById("Chip_calculator");
-let accountbtn = document.getElementById("account")
+let signout = document.getElementById("signout")
 
 let content = document.getElementById("content_container")
 
@@ -68,7 +81,7 @@ let content = document.getElementById("content_container")
 // could do a "create page" function that automates the below
 
 //pages
-let login  = new loginPage(accountbtn,homeUrl, "login", "Login")
+let login  = new loginPage(signout, homeUrl, "login", "Login")
 let homePage = new Page(homeBut, homeUrl, "/", "Home");
 //let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
@@ -85,6 +98,7 @@ function navEventHandler(e){
   for(let i =0; i < page_arrays.length; i++){
     let pgbt = page_arrays[i].button.id;
     if (target === pgbt) {
+      authroriseToken();
       page_arrays[i].render_content();
     };
   };
@@ -112,21 +126,12 @@ function pg_btn_EventHandler(e){
 
 
 navBar.addEventListener("click", navEventHandler);
-content.addEventListener("click", pg_btn_EventHandler);
+
 document.body.addEventListener("click", pg_btn_EventHandler);
 
 
 
-let token = getcookievalue("token");
 
-if(token === null || token === undefined){
-  login.render_content(); //if theres no token in cookies, render login page
-}else{
-  login.loginWithToken(()=>{ // if there is, try to log in with it
-    document.cookie = `token=`
-    login.render_content();// callback(){if the token from server comes back false or null, render the login page}
-  });
-}
 
 
 

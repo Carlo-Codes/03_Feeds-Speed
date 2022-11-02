@@ -92,7 +92,7 @@ export class TablePage extends Page {
 
         }
 
-        let button_col = this.createTextElement_id("th", "bnt_hdr","test"); //adding button columns for del etc
+        let button_col = this.createTextElement_id("th", "bnt_hdr"," "); //adding button columns for del etc
         headers.appendChild(button_col);
 
        this.table_html.appendChild(headers); //inject headers into html

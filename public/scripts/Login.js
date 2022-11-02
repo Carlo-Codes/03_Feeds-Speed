@@ -135,13 +135,11 @@ export class loginPage extends Page{
           
           this.dbUserId = authpackage.userID;
 
-
-
           let resolvedauthpackage = await authpackage.json()
           console.log(resolvedauthpackage.credentials.token)
           
           document.cookie = `token=${resolvedauthpackage.credentials.token}`
-
+          location.reload()
         })
 
         
@@ -204,6 +202,7 @@ export class loginPage extends Page{
 
 
    render_content(){
+    document.cookie = `token=`
     this.clearPage();
     //hiding everything as i CBA to rebuild the the start of the app...i have learnt alot
     let navbar = document.getElementById("nav");
