@@ -71,7 +71,7 @@ export class loginPage extends Page{
 
     }
 
-    credentialsInputCheck(username, password, password2=password){ //for login in, checks login crdedentials against database
+    credentialsInputCheck(username, password, password2=password){ //checks rules for passowrds & emails
 
       let pass = true
 
@@ -120,7 +120,7 @@ export class loginPage extends Page{
 
     }
 
-    async newlogintoken(){
+    async newlogintoken(){ //signs user in and returns a token when using credentials
       let email = document.getElementById(this.email_ID).value;
       let password = document.getElementById(this.password_ID).value;
 
@@ -151,8 +151,7 @@ export class loginPage extends Page{
 
     }
 
-    async loginWithToken(callback = function() {}){
-      document.cookie = "test=testestes"
+    async loginWithToken(callback = function() {}){ //loggin in token
       let token = this.getcookievalue("token");
       console.log("token clientside = " + token)
   
@@ -174,6 +173,7 @@ export class loginPage extends Page{
       
     }
 
+    //UI stuff
     login_form(){
       let email_in = this.generate_input(this.email_ID, "text");
       let password_in = this.generate_input(this.password_ID, "text");
@@ -209,7 +209,7 @@ export class loginPage extends Page{
     let contentContainer = document.getElementById("content_container");
     navbar.style.display = "none";
     contentContainer.style.display = "none";
-
+    //
     
 
     this.login_container.append(this.signUp_form());

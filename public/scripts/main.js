@@ -7,16 +7,10 @@ import {loginPage} from "./Login.js"
 
 /* Notes to self
 TODO
- - //create a formular to aproximate chipload of other diamter bits based on metal/ plastic/ wood 
- - //post data to chipload data table
- - choose to guess the rest of the chip load or not
- - be able to change a chipload once you have run a test accuratley
- 
- -//add delete button to chipload rows
- -*add data tables of fav feeds and speeds (add and delete rows)
- 
- -add user & password functionaility add user ids to corresponding tables
-    --Caant get bcrypt to return true -- start here
+ - make things a bit prettier
+    - make login mage nicer
+    - write up and intro 
+    - put warning on sign up page
 
   
 
@@ -41,7 +35,6 @@ function getcookievalue(name){ // getting cooking from the db browser
 
 function authroriseToken(){
   let token = getcookievalue("token");
-
   if(token === null || token === undefined){
     login.render_content(); //if theres no token in cookies, render login page
   }else{
@@ -129,7 +122,8 @@ navBar.addEventListener("click", navEventHandler);
 
 document.body.addEventListener("click", pg_btn_EventHandler);
 
-
+homePage.render_content()
+authroriseToken();
 
 
 

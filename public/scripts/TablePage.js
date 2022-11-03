@@ -4,7 +4,7 @@ export class TablePage extends Page {
       constructor(html_button, homeUrl, data_fetch_url, title){
         super(html_button, homeUrl, data_fetch_url, title);
         this.data; //table data to eventually display
-         // string url to server to get data for table
+        
       };
 
 
@@ -14,11 +14,12 @@ export class TablePage extends Page {
          //bringing this in from outside
         
         let homeUrl = this.h_url; 
+        let columns = []
 
-        let columns = Object.keys(this.data[0]);// recieve the coloumn headers
+        columns = Object.keys(this.data[0]);// recieve the coloumn headers
         let headers = document.createElement("tbody");  
         headers.setAttribute("class", "column_header");
-        let rows = []; // empty row data
+        
 
 
         //////for Adding data row/////
@@ -102,35 +103,39 @@ export class TablePage extends Page {
 
 
 
+
         ////populating table///
         for (let i = 0; i < this.data.length; i++){ //for every row in table
             let values = Object.values(this.data[i])//2 row of data
             let row = document.createElement("tr");//create a row
             row.setAttribute("id", `row${i}`)
 
-            for (let j = 2; j < values.length; j++){ //start from 2 to hide material id from user
-               let cell = document.createElement("td");// create cell & add data
-               let row_text = document.createTextNode(`${values[j]}`);
-               cell.appendChild(row_text)
-               row.appendChild(cell) // add cell to row
+            if (values[i]!== null){// just checking the server hasnt sent back a null row see colresults in /chiploadInfo in server.js
+               for (let j = 2; j < values.length; j++){ //start from 2 to hide material id from user
+                  let cell = document.createElement("td");// create cell & add data
+                  let row_text = document.createTextNode(`${values[j]}`);
+                  cell.appendChild(row_text)
+                  row.appendChild(cell) // add cell to row
+                  }
+                  
+                  function delete_row (){ // this is the delete button handler callback
+                     let rowdata = that.data[i]//the row we want to delete.
+                     if (confirm(`Delete ${rowdata['Material']} from the database?`)){// checkign the user wants to delet the row
+                        let res = fetch(homeUrl + 'delmatrow', {
+                           method : 'POST',
+                           headers : {'Content-Type': 'application/json'},
+                           body : JSON.stringify(rowdata),
+                        })
+                        document.getElementById(`row${i}`).remove(); // deletes the data from the dom as it will not refesh automatically
+                     }
+                  }            
+                  let delBtn = this.generate_button(`del${i}`, "Delete", delete_row.bind(this));
+                  row.appendChild(delBtn);
             };
 
 
             //Adding the delete button to eacj row
-            function delete_row (){ // this is the delete button handler callback
-               let rowdata = that.data[i]//the row we want to delete.
-               if (confirm(`Delete ${rowdata['Material']} from the database?`)){// checkign the user wants to delet the row
-                  let res = fetch(homeUrl + 'delmatrow', {
-                     method : 'POST',
-                     headers : {'Content-Type': 'application/json'},
-                     body : JSON.stringify(rowdata),
-                  })
-                  document.getElementById(`row${i}`).remove(); // deletes the data from the dom as it will not refesh automatically
-               }
-            }
 
-            let delBtn = this.generate_button(`del${i}`, "Delete", delete_row.bind(this));
-            row.appendChild(delBtn);
             this.table_html.appendChild(row); //add rows to table
          
          };

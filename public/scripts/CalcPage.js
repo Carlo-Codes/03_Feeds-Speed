@@ -45,6 +45,9 @@ export class CalcPage extends Page{
       //creating content for drop down
       for (let i=0; i < data.length; i++){
         let inject = data[i][key]; //getting the material name from db
+        if (inject === null){
+          inject = ""
+        }
 
         let dd_option = document.createElement("option");// creating dropdown options
         dd_option.setAttribute("value", `${inject}`);

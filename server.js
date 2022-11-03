@@ -14,6 +14,18 @@ const secret = process.env.TOKEN_SECRET;
 
 //Server functions
 
+function getcookievalue(name, req){ // getting cooking from the db browser
+    let cookies = req.headers["cookie"]
+    let splitcookies = cookies.split("; ");
+    for (let i =0; i < splitcookies.length; i++){
+      let target = splitcookies[i];
+      if (target.indexOf(name)!== -1){
+        let cookie = target.split("=")[1]
+        return cookie
+      }
+    }
+  }
+
 async function retrieveUser(username, callback) {
     dbCon.query(`select * from users where email = '${username}';`, (err, results) => {
         if(err) throw err;
@@ -103,6 +115,14 @@ async function authetnicateToken(token, callback){
 
 }
 
+async function userIdFromToken(token, callback){
+   await authetnicateToken(token, (package) => {
+        if (package.credentials.userID === null) return
+        console.log("userIdFromToken = " + package.credentials.userID)
+        return callback(package.credentials.userID)
+    })
+}
+
 //API
 var dbCon = mysql.createConnection({
     host : "127.0.0.1",
@@ -124,20 +144,40 @@ app.get('/toolInfo', (req, res) => {
     
     dbCon.query('SELECT * FROM tools;', (err, result) => {
         if (err) throw err
-        
         //console.log(result)
         res.status(200).send(result)
     })
 });
 
+
 app.get('/chiploadInfo', (req, res) => {
-    
-    dbCon.query('SELECT * FROM ChipLoad;', (err, result) => {
-        if (err) return err
-        
-      
-        res.status(200).send(result)
+    let token = getcookievalue("token", req)
+    //console.log("header token = "+ token)
+    userIdFromToken(token,(userID) => {
+        dbCon.query(`SELECT * FROM ChipLoad WHERE user_id = ${userID} OR user_id = null;`, (err, result) => {
+            if (err) return err
+            if(result.length < 1){ // if theres no rows in the table send everything wil null //maybe this is stupid?
+                dbCon.query('SHOW COLUMNS FROM ChipLoad;', (err, resultCOL) => {
+                    let fields = resultCOL.map(i => i.Field);
+                    let parsedResponse = {}
+                    fields.forEach(element => {
+                        parsedResponse[element] = null
+                    });
+                    let colresult = []
+                    colresult.push(parsedResponse)
+                    res.status(200).send(colresult)
+                })
+                
+            } else {
+                console.log(result)
+                //console.log("chip load Info headers = " + JSON.stringify(req.headers) + "\n" )
+                //console.log("userid = " + userID)
+                res.status(200).send(result)
+            }
+
+        })
     })
+    
 });
 
 app.post('/checkuserexists', (req, res) => {
@@ -155,20 +195,18 @@ app.post('/checkuserexists', (req, res) => {
 })
 
 app.post('/chippost', (req, res) => {
-    
 
+    let token = getcookievalue("token", req)
     let data = req.body
     let dataKeys = Object.keys(data)
     let mysqlFunc = "";
    
-    for (let i = 1; i < dataKeys.length; i++){
-
-        mysqlFunc += data[dataKeys[i]] + ", "
-    }
-    dbCon.query(`insert into ChipLoad(Material, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${data['Material']}', ${data['2']}, ${data['4']}, ${data['6']} , ${data['8']}, ${data['10']}, ${data['12']});`, (err, res) => {
-    
+    userIdFromToken(token, (userID) => {
+        dbCon.query(`insert into ChipLoad(Material, user_id, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${data['Material']}', ${userID}, ${data['2']}, ${data['4']}, ${data['6']} , ${data['8']}, ${data['10']}, ${data['12']});`, (err, res) => {
+            res.status(200);
     })
-    res.status(200);
+    })
+    
     
 });
 
@@ -180,10 +218,15 @@ app.post('/delmatrow', (req, res) => {
 
 app.post('/addmaterial', (req, res) =>{
     let adddata = req.body
-    dbCon.query(`insert into ChipLoad(Material, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${adddata['Material']}', ${adddata['2mm']}, ${adddata['4mm']}, ${adddata['6mm']} , ${adddata['8mm']}, ${adddata['10mm']}, ${adddata['12mm']});`, (err, res) => {
-    if (err) throw err
+    let token = getcookievalue("token", req)
+    userIdFromToken(token, (userID) => {
+        dbCon.query(`insert into ChipLoad(Material, user_id, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${adddata['Material']}', ${userID}, ${adddata['2mm']}, ${adddata['4mm']}, ${adddata['6mm']} , ${adddata['8mm']}, ${adddata['10mm']}, ${adddata['12mm']});`, (err, res) => {
+         if (err) throw err
+         
     })
     res.status(200);
+})
+    
 })
 
 app.post('/newuser',storeuserdata , (req, res) => {
