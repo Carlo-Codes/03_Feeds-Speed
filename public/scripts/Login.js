@@ -7,6 +7,10 @@ export class loginPage extends Page{
 
     //html elements admin
     this.newuserAPI = "newuser"
+    
+    this.login_body = document.createElement("div")
+    this.login_body.setAttribute("id", "login_body")
+
     this.login_container = document.createElement("div");
     this.login_container.setAttribute("id", "login_container")
 
@@ -15,14 +19,16 @@ export class loginPage extends Page{
 
     this.password_ID = "Password"
     this.email_ID = "Email"
-    this.retypePasswors_ID = "Retype Password"
+    this.retypePasswors_ID = "Retypeassword"
 
     this.checkuserexistsURL = 'checkuserexists'
 
     this.dbUserId; //for use when filtereing entire db
 
-    document.body.append(this.login_container);
-    document.body.append(this.button_container);
+    document.body.append(this.login_body);
+    this.login_body.append(this.login_container);
+    this.login_body.append(this.button_container)
+    
     }
 
 
@@ -33,10 +39,10 @@ export class loginPage extends Page{
         let oldErr = document.getElementById("error")
         oldErr.remove()
         let newErr = this.createTextElement_id("div","error",text);
-        this.login_container.append(newErr);
+        this.login_body.append(newErr);
     } else{
         let newErr = this.createTextElement_id("div","error",text);
-        this.login_container.append(newErr);
+        this.login_body.append(newErr);
     }
   }
 
@@ -48,14 +54,15 @@ export class loginPage extends Page{
                     auth: `Basic ${btoa(username.toLowerCase() +":"+ password)}`},
           body : JSON.stringify({test:"suceesful123"})
         })
-        let authpackage = res
+        let authpackage = await res.json()
         return callback(authpackage)
       }
 
 
     async newuser(username, password){ //creates as new token while creating a new user in the db sdee server
         let token = await this.newusertoken(username, password, this.h_url + this.newuserAPI, (authpackage) => {
-          document.cookie = `token=${token.accessToken}`
+          console.log(authpackage.accessToken)
+          document.cookie = `token=${authpackage.accessToken}`
         });
         
     }
@@ -116,6 +123,7 @@ export class loginPage extends Page{
 
           this.newuser(email,password);
           alert("new user created");
+          location.reload();
         } 
 
     }
@@ -135,7 +143,7 @@ export class loginPage extends Page{
           
           this.dbUserId = authpackage.userID;
 
-          let resolvedauthpackage = await authpackage.json()
+          let resolvedauthpackage = await authpackage
           console.log(resolvedauthpackage.credentials.token)
           
           document.cookie = `token=${resolvedauthpackage.credentials.token}`
@@ -196,9 +204,34 @@ export class loginPage extends Page{
 
     }
 
+    renderSignUp(){
+      let inputForm = this.signUp_form();
+      let singUpBtn = this.generate_button("signup", "Signup", this.register.bind(this));
+      let renderloginbtn = this.generate_button("rederloginbtn", "Already Signed up? Login here", this.renderLogin.bind(this));
 
+      this.login_container.replaceChildren(); //clearing containers
+      this.button_container.replaceChildren();
 
+      this.login_container.append(inputForm);
+      this.button_container.append(singUpBtn);
+      this.button_container.append(this.htmlbreak);
+      this.button_container.append(renderloginbtn);
+    }
 
+    renderLogin(){
+      let inputForm = this.login_form();
+      let loginbtn = this.generate_button("login", "Login", this.newlogintoken.bind(this));
+      let renderSignupbtn = this.generate_button("RenderSignup", "Are you new? Sign up here", this.renderSignUp.bind(this))
+
+      this.login_container.replaceChildren(); //clearing containers
+      this.button_container.replaceChildren();
+
+      this.login_container.append(inputForm);
+      this.button_container.append(loginbtn);
+      this.button_container.append(this.htmlbreak);
+      this.button_container.append(renderSignupbtn)
+      
+    }
 
 
    render_content(){
@@ -210,24 +243,8 @@ export class loginPage extends Page{
     navbar.style.display = "none";
     contentContainer.style.display = "none";
     //
-    
 
-    this.login_container.append(this.signUp_form());
-   
-    
-    let loginbtn = this.generate_button("login", "Login", this.newlogintoken.bind(this));
-    let singupbtn = this.generate_button("signup", "Signup", this.register.bind(this))
-
-    this.button_container.append(loginbtn);
-    this.button_container.append(this.htmlbreak);
-    this.button_container.append(singupbtn);
-
-    this.button_container.append(this.generate_button("test","test",this.loginWithToken.bind(this)));
-    
-  
-    
-    
-
+    this.renderLogin();
 
     }
 }
