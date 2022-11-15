@@ -4,17 +4,22 @@ let express = require('express');
 const { json } = require('express');
 let app = express();
 let port = 7800;
-let dbPort = 9000;
 let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
+const db_password = process.env.DB_PASSWORD;
+
+const db_host = "127.0.0.1"
+const db_port = "3306"
+
+
 
 //Server functions
 
-function getcookievalue(name, req){ // getting cooking from the db browser
+function getcookievalue(name, req){ // getting cooking from the browser
     let cookies = req.headers["cookie"]
     let splitcookies = cookies.split("; ");
     for (let i =0; i < splitcookies.length; i++){
@@ -125,10 +130,10 @@ async function userIdFromToken(token, callback){
 
 //API
 var dbCon = mysql.createConnection({
-    host : "127.0.0.1",
-    port : "3306", 
+    host : db_host,
+    port : db_port, 
     user : "root",
-    password : "Qwerty11!",
+    password : db_password,
     database : "feedsspeeds_db"
 });
 
