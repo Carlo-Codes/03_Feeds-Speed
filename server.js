@@ -14,6 +14,8 @@ const db_password = process.env.DB_PASSWORD;
 
 const db_host = "127.0.0.1"
 const db_port = "3306"
+const db_user = "carlo"
+const db_name = "feedsspeeds_db"
 
 
 
@@ -132,9 +134,9 @@ async function userIdFromToken(token, callback){
 var dbCon = mysql.createConnection({
     host : db_host,
     port : db_port, 
-    user : "root",
+    user : db_user,
     password : db_password,
-    database : "feedsspeeds_db"
+    database : db_name
 });
 
 dbCon.connect((err) => {
