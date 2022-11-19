@@ -2,28 +2,21 @@
 let mysql = require('mysql2');
 let express = require('express');
 const { json } = require('express');
-let cors = require("cors");
-
 let app = express();
+const cors = require('cors');
 let port = 7800;
+let dbPort = 9000;
 let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
-const db_password = process.env.DB_PASSWORD;
-
-const db_host = "127.0.0.1"
-const db_port = "3306"
-const db_user = "root"
-const db_name = "feedsspeeds_db"
-
-
+const db_password = process.env.db_password
 
 //Server functions
 
-function getcookievalue(name, req){ // getting cooking from the browser
+function getcookievalue(name, req){ // getting cooking from the db browser
     let cookies = req.headers["cookie"]
     let splitcookies = cookies.split("; ");
     for (let i =0; i < splitcookies.length; i++){
@@ -134,11 +127,11 @@ async function userIdFromToken(token, callback){
 
 //API
 var dbCon = mysql.createConnection({
-    host : db_host,
-    port : db_port, 
-    user : db_user,
+    host : "127.0.0.1",
+    port : "3306", 
+    user : "root",
     password : db_password,
-    database : db_name
+    database : "feedsspeeds_db"
 });
 
 dbCon.connect((err) => {
@@ -151,7 +144,16 @@ app.use(express.json());
 app.use(cors({
     origin: 'http://localhost:7800/'
   }));
-app.options('*', cors());
+
+app.get('/toolInfo', (req, res) => {
+    
+    dbCon.query('SELECT * FROM tools;', (err, result) => {
+        if (err) throw err
+        //console.log(result)
+        res.status(200).send(result)
+    })
+});
+
 
 app.get('/chiploadInfo', (req, res) => {
     let token = getcookievalue("token", req)
@@ -161,14 +163,14 @@ app.get('/chiploadInfo', (req, res) => {
             if (err) return err
             if(result.length === 0){ // if theres no rows in the table send everything wil null //maybe this is stupid?
                 dbCon.query('SHOW COLUMNS FROM ChipLoad;', (err, resultCOL) => {
-                    // let fields = resultCOL.map(i => i.Field);
-                    // let parsedResponse = {}
-                    // fields.forEach(element => {
-                    //     parsedResponse[element] = null
-                    // });
-                    // let colresult = []
-                    // colresult.push(parsedResponse)
-                    // res.status(200).send(colresult)
+                    let fields = resultCOL.map(i => i.Field);
+                    let parsedResponse = {}
+                    fields.forEach(element => {
+                        parsedResponse[element] = null
+                    });
+                    let colresult = []
+                    colresult.push(parsedResponse)
+                    res.status(200).send(colresult)
                 })
                 
             } else {
