@@ -149,16 +149,7 @@ dbCon.connect((err) => {
 app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
-
-app.get('/toolInfo', (req, res) => {
-    
-    dbCon.query('SELECT * FROM tools;', (err, result) => {
-        if (err) throw err
-        //console.log(result)
-        res.status(200).send(result)
-    })
-});
-
+app.options('*', cors());
 
 app.get('/chiploadInfo', (req, res) => {
     let token = getcookievalue("token", req)
