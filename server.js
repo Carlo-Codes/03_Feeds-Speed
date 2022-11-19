@@ -2,6 +2,8 @@
 let mysql = require('mysql2');
 let express = require('express');
 const { json } = require('express');
+let cors = require("cors");
+
 let app = express();
 let port = 7800;
 let dotenv = require('dotenv');
@@ -14,7 +16,7 @@ const db_password = process.env.DB_PASSWORD;
 
 const db_host = "127.0.0.1"
 const db_port = "3306"
-const db_user = "carlo"
+const db_user = "root"
 const db_name = "feedsspeeds_db"
 
 
@@ -146,6 +148,7 @@ dbCon.connect((err) => {
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cors());
 
 app.get('/toolInfo', (req, res) => {
     
