@@ -47,7 +47,7 @@ function authroriseToken(){
 
 
 // URLS
-const homeUrl = 'https://localhost:7800/';
+const homeUrl = 'http://localhost:7800/';
 const tool_dataUrl = 'toolInfo';
 const material_dataUrl = 'chiploadInfo';
 
