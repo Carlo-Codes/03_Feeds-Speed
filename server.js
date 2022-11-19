@@ -3,6 +3,7 @@ let mysql = require('mysql2');
 let express = require('express');
 const { json } = require('express');
 let app = express();
+const cors = require('cors');
 let port = 7800;
 let dbPort = 9000;
 let dotenv = require('dotenv');
@@ -11,6 +12,7 @@ let bcrypt = require('bcrypt');
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
+const db_password = process.env.db_password
 
 //Server functions
 
@@ -128,7 +130,7 @@ var dbCon = mysql.createConnection({
     host : "127.0.0.1",
     port : "3306", 
     user : "root",
-    password : "Qwerty11!",
+    password : db_password,
     database : "feedsspeeds_db"
 });
 
@@ -139,6 +141,9 @@ dbCon.connect((err) => {
 
 app.use(express.static('public'));
 app.use(express.json());
+app.use(cors({
+    origin: 'http://localhost:7800/'
+  }));
 
 app.get('/toolInfo', (req, res) => {
     
