@@ -148,7 +148,9 @@ dbCon.connect((err) => {
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+    origin: 'http://localhost:7800/'
+  }));
 app.options('*', cors());
 
 app.get('/chiploadInfo', (req, res) => {
