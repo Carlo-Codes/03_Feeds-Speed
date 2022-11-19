@@ -161,16 +161,16 @@ app.get('/chiploadInfo', (req, res) => {
         dbCon.query(`SELECT * FROM ChipLoad WHERE user_id = ${userID} OR user_id = null;`, (err, result) => {
             if (err) return err
             if(result.length === 0){ // if theres no rows in the table send everything wil null //maybe this is stupid?
-                dbCon.query('SHOW COLUMNS FROM ChipLoad;', (err, resultCOL) => {
-                    let fields = resultCOL.map(i => i.Field);
-                    let parsedResponse = {}
-                    fields.forEach(element => {
-                        parsedResponse[element] = null
-                    });
-                    let colresult = []
-                    colresult.push(parsedResponse)
-                    res.status(200).send(colresult)
-                })
+                // dbCon.query('SHOW COLUMNS FROM ChipLoad;', (err, resultCOL) => {
+                //     let fields = resultCOL.map(i => i.Field);
+                //     let parsedResponse = {}
+                //     fields.forEach(element => {
+                //         parsedResponse[element] = null
+                //     });
+                //     let colresult = []
+                //     colresult.push(parsedResponse)
+                //     res.status(200).send(colresult)
+                // })
                 
             } else {
                 console.log(result)
