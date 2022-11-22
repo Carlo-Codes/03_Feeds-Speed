@@ -27,6 +27,7 @@ export class Page{ //should only use classes for status' and should make a class
       let res = await fetch (this.h_url + url, {
         method : 'GET',
         headers: {
+          'Content-Type': 'text/plain',
           'cookie' : document.cookie,
         }
       });
