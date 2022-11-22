@@ -28,10 +28,11 @@ export class Page{ //should only use classes for status' and should make a class
         method : 'GET',
         headers: {
           'Content-Type': 'application/json',
-          cookie : document.cookie,
+          'cookie' : document.cookie,
         }
       });
-      
+      console.log(document.cookie);
+
       let data = await res.json();
       return data;
      };

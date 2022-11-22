@@ -18,6 +18,7 @@ const db_password = process.env.db_password
 
 function getcookievalue(name, req){ // getting cooking from the db browser
     let cookies = req.headers["cookie"]
+    //console.log("getcookievalue() cookies =" + cookies)
     let splitcookies = cookies.split("; ");
     for (let i =0; i < splitcookies.length; i++){
       let target = splitcookies[i];
