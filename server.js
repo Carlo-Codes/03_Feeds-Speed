@@ -156,7 +156,7 @@ app.get('/toolInfo', (req, res) => {
 
 app.get('/chiploadInfo', (req, res) => {
     let token = getcookievalue("token", req)
-    //console.log("header token = "+ token)
+    console.log("header token = "+ token)
     userIdFromToken(token,(userID) => {
         dbCon.query(`SELECT * FROM ChipLoad WHERE user_id = ${userID} OR user_id = null;`, (err, result) => {
             if (err) return err
