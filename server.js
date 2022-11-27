@@ -143,9 +143,9 @@ dbCon.connect((err) => {
 });
 
 let corsOptionconfig = {
-    "Origin": corsOrigin,
-    "Access-Control-Allow-Headers" : "auth, Content-Type, origin",
-    "Access-Control-Request-Method": "GET, POST"
+    "origin": corsOrigin,
+    "Access-Control-Allow-Headers" : "auth, Content-Type",
+    "Access-Control-Request-Method": "POST"
 }
 
 let corsConfig = {
