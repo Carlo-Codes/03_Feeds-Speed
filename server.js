@@ -10,6 +10,8 @@ let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
+let corsOrigin = 'http://68.183.9.139'
+
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
 const db_password = process.env.db_password
@@ -141,18 +143,18 @@ dbCon.connect((err) => {
 });
 
 let corsOptionconfig = {
-    "origin": 'http://68.183.9.139',
+    "origin": corsOrigin,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "Access-Control-Allow-Headers" : "auth, Content-Type",
-    "preflightContinue": false,
+    "preflightContinue": "true",
     "optionsSuccessStatus": 204,  
     "Access-Control-Allow-Credentials": "true",
 }
 
 let corsConfig = {
-    "origin": "'http://68.183.9.139'",
+    "origin": corsOrigin,
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
+    "preflightContinue": "false",
     "optionsSuccessStatus": 204 , 
     "Access-Control-Expose-Headers":"credentials",
     "Access-Control-Allow-Credentials": "true"
@@ -164,7 +166,7 @@ app.use(express.json());
 app.use(cors(corsConfig));
 
 
-app.options('*', cors(corsOptionconfig))
+app.options(corsOrigin, cors(corsOptionconfig))
 
 
 app.get('/toolInfo', (req, res) => {

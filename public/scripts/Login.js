@@ -50,7 +50,7 @@ export class loginPage extends Page{
     async newusertoken(username, password, url, callback) { //creat new token given api url
         let res =  await fetch(url, {
           method: "POST",
-          headers: {'Content-Type': 'application/json',
+          headers: {'Content-Type': 'text/html',
                     auth: `Basic ${btoa(username.toLowerCase() +":"+ password)}`},
           body : JSON.stringify({test:"suceesful123"})
         })
@@ -70,7 +70,7 @@ export class loginPage extends Page{
     async checkuserexists(username){ // check to see if user exists 
       let exists = await fetch(this.h_url + this.checkuserexistsURL,{
         method: "POST",
-        headers: {'Content-Type': 'application/json'},
+        headers: {'Content-Type': 'text/html'},
         body: JSON.stringify({username:username.toLowerCase()}),
       })
       let exists_check = exists.json();
@@ -166,7 +166,7 @@ export class loginPage extends Page{
       console.log(token) 
       let res = await fetch(this.h_url + "tokenlogin", {
         method:"POST",
-        headers: {'Content-Type': 'application/json',
+        headers: {'Content-Type': 'text/html',
         auth : token,}
         
       });
