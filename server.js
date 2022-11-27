@@ -149,6 +149,7 @@ let corsOptionconfig = {
     "preflightContinue": "true",
     "optionsSuccessStatus": 204,  
     "Access-Control-Allow-Credentials": "true",
+    "credentials" : 'include',
 }
 
 let corsConfig = {
@@ -157,7 +158,8 @@ let corsConfig = {
     "preflightContinue": "false",
     "optionsSuccessStatus": 204 , 
     "Access-Control-Expose-Headers":"credentials",
-    "Access-Control-Allow-Credentials": "true"
+    "Access-Control-Allow-Credentials": "true",
+    "credentials" : 'include',
 }
 
 
