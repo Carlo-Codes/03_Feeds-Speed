@@ -141,18 +141,21 @@ dbCon.connect((err) => {
 });
 
 let corsOptionconfig = {
-    "origin": "*",
+    "origin": 'http://68.183.9.139',
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "Access-Control-Allow-Headers" : "auth, Content-Type",
     "preflightContinue": false,
-    "optionsSuccessStatus": 204  
+    "optionsSuccessStatus": 204,  
+    "Access-Control-Allow-Credentials": "true",
 }
 
 let corsConfig = {
-    "origin": "*",
+    "origin": "'http://68.183.9.139'",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
-    "optionsSuccessStatus": 204  
+    "optionsSuccessStatus": 204 , 
+    "Access-Control-Expose-Headers":"credentials",
+    "Access-Control-Allow-Credentials": "true"
 }
 
 
