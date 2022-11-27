@@ -144,6 +144,8 @@ app.use(express.static('public'));
 app.use(express.json());
 app.use(cors());
 
+app.options('*', cors())
+
 
 app.get('/toolInfo', (req, res) => {
     
