@@ -165,21 +165,15 @@ export class loginPage extends Page{
 
     async loginWithToken(callback = function() {}){ //loggin in token
       let token = this.getcookievalue("token");
-      console.log("token clientside = " + token)
-  
-      console.log(token) 
       let res = await fetch(this.h_url + "tokenlogin", {
         method:"POST",
-        mode: 'cors',
+        mode: 'no-cors',
         credentials: 'include',
         headers: {'Content-Type': 'text/html',
         auth : token,}
-        
       });
 
       let auth = await res.json()
-      console.log(auth)///if some error, return err handle
-      console.log
       if (auth.credentials.token === null || auth.credentials.token === false){
         console.log("not authorised")
         return callback()
