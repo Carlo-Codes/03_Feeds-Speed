@@ -145,14 +145,14 @@ dbCon.connect((err) => {
 let corsOptionconfig = {
     "origin": corsOrigin,
     "Access-Control-Request-Method": "POST,OPTIONS",
-    "Access-Control-Allow-Headers" : "auth, Content-Type",
+    "Access-Control-Allow-Headers" : "auth, Content-Type, origin",
     "Access-Control-Expose-Headers":"credentials",
 
 }
 
 let corsConfig = {
     "origin": corsOrigin,
-    "methods": ['GET','HEAD','PUT','PATCH','POST','DELETE'],
+    "methods": ['GET','HEAD','PUT','PATCH','POST','DELETE', 'OPTIONS'],
     "preflightContinue": "false",
     "optionsSuccessStatus": 204 , 
     "Access-Control-Expose-Headers":"credentials",
