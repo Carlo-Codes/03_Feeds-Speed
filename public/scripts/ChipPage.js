@@ -12,7 +12,7 @@ export class ChipPage extends CalcPage {
         this.calculateBtnID = "calculateCLBut"
         this.postBtnID = "post_calc"
 
-        this.tool_data; //empty tool data. data to be fetches
+        
         this.post_data;
     }
 
