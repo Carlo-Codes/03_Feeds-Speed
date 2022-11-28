@@ -10,7 +10,7 @@ let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
-let corsOrigin = 'localhost:7800//tokenlogin'
+let corsOrigin = 'localhost:7800'
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
@@ -145,8 +145,8 @@ dbCon.connect((err) => {
 let corsOptionconfig = {
     "origin": corsOrigin,
     "Access-Control-Request-Method": "POST,OPTIONS",
-    "Access-Control-Allow-Headers" : "auth, Content-Type, origin",
-    "Access-Control-Expose-Headers":"credentials",
+    "Access-Control-Allow-Headers" : "auth, Content-Type",
+    "Access-Control-Expose-Headers": "auth, Content-Type",
 
 }
 
@@ -163,10 +163,10 @@ let corsConfig = {
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(cors());
+app.use(cors(corsConfig));
 
 
-app.options("*", cors())
+app.options("*", cors(corsOptionconfig))
 
 
 app.get('/toolInfo', (req, res) => {
