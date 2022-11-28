@@ -5,7 +5,7 @@ export class FeedsSpeeds extends CalcPage {
         super(html_button, homeUrl, data_fetch_url, title);
 
         this.calculateBtnID = "calculateFSBut";
-        this.retrieve_data();
+        
     }
 
     calculate(){ //calculate feeds and speed based on input
@@ -55,6 +55,7 @@ export class FeedsSpeeds extends CalcPage {
         this.clearPage();
         let title_node = document.createTextNode(this.title);
         this.title_html.appendChild(title_node);
+        this.retrieve_data();
 
   
         //creating dropdowns
