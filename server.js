@@ -171,7 +171,7 @@ app.use(express.json());
 app.use(cors(corsConfig));
 
 
-a//pp.options("*", cors(corsOptionconfig))
+//app.options("*", cors(corsOptionconfig))
 
 
 app.get('/toolInfo', (req, res) => {
