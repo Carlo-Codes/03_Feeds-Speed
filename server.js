@@ -163,10 +163,10 @@ let corsConfig = {
 
 app.use(express.static('public'));
 app.use(express.json());
-app.use(cors(corsConfig));
+app.use(cors());
 
 
-app.options("*", cors(corsOptionconfig))
+app.options("*", cors())
 
 
 app.get('/toolInfo', (req, res) => {
