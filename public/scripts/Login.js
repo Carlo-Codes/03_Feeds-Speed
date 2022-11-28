@@ -167,7 +167,7 @@ export class loginPage extends Page{
       let token = this.getcookievalue("token");
       let res = await fetch(this.h_url + "tokenlogin", {
         method:"POST",
-        mode: 'no-cors',
+        mode: 'cors',
         credentials: 'include',
         headers: {'Content-Type': 'text/html',
         auth : token,}

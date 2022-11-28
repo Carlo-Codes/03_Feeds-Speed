@@ -10,7 +10,7 @@ let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
-let corsOrigin = 'localhost:7800'
+let corsOrigin = 'http://68.183.9.139'
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
@@ -158,6 +158,7 @@ let corsOptionconfig = {
 let corsConfig = {
     "origin": corsOrigin,
     "methods": ['GET','HEAD','PUT','PATCH','POST','DELETE', 'OPTIONS'],
+    "Access-Control-Allow-Headers" : "auth, Content-Type",
     "preflightContinue": "false",
     "optionsSuccessStatus": 204 , 
     "Access-Control-Expose-Headers":"credentials",
