@@ -10,7 +10,7 @@ let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
-let corsOrigin = 'localhost:7800'
+let corsOrigin = 'localhost:7800/*'
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
