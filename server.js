@@ -176,12 +176,7 @@ app.use(cors(corsConfig));
 
 
 app.get('/toolInfo', (req, res) => {
-    
-    dbCon.query('SELECT * FROM tools;', (err, result) => {
-        if (err) throw err
-        //console.log(result)
         res.status(200).send(result)
-    })
 });
 
 
