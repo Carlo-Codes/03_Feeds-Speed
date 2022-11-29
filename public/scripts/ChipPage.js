@@ -103,6 +103,8 @@ export class ChipPage extends CalcPage {
 
     async render_content(){
 
+        this.retrieve_data(); //retrieves data on start up of a calculation page
+
        let mtrlTxtBx = this.generate_input(this.material_input_id, "text");
        let feedbx = this.generate_input(this.Feed_rt_input_id, "number");
 

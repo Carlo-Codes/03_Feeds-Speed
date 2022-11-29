@@ -21,7 +21,7 @@ export class CalcPage extends Page{
         this.RPM_data
 
 
-       this.retrieve_data(); //retrieves data on start up of a calculation page
+        
     }
 
     async retrieve_data() { //getting data from db

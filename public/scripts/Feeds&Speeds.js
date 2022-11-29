@@ -51,7 +51,7 @@ export class FeedsSpeeds extends CalcPage {
   
       render_content(){
   
-  
+        this.retrieve_data(); //retrieves data on start up of a calculation page
         this.clearPage();
         let title_node = document.createTextNode(this.title);
         this.title_html.appendChild(title_node);
