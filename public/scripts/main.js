@@ -11,6 +11,8 @@ TODO
     - make login mage nicer
     - write up and intro 
     - put warning on sign up page
+    - check new user exists doesnt work says it doesnt
+    - making calculated chip load highlited - css
 
   
 
