@@ -200,8 +200,8 @@ app.get('/chiploadInfo', (req, res) => {
                 
             } else {
                 console.log(result)
-
-                res.status(200).send(result)
+                
+                res.status(200).send(result[0])
             }
 
         })
