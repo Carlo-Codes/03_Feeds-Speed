@@ -82,8 +82,7 @@ export class TablePage extends Page {
             }
             //creating add data cells for adding data
             let cellInput = this.generate_input(`input${columns[i]}`, input_type); // creating inputs to inject into cells
-            let cellInputbox = cellInput[1
-            ]
+            let cellInputbox = cellInput[1]
             cellInputbox.setAttribute("class", "addinput")
             cellInputbox.setAttribute("step", step)
             let cell = document.createElement("td")//creating cell

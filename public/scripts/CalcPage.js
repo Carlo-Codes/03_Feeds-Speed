@@ -25,9 +25,9 @@ export class CalcPage extends Page{
     }
 
 
-    generate_dropdown(html_id, data, key){ //should be a prototype; creates dropdowns
+    generate_dropdown(html_id, input_data, key){ //should be a prototype; creates dropdowns
 
-      
+      let data = input_data [0];
 
       //html component parts
       let label = document.createElement("label"); //creating label for dropdown
@@ -39,7 +39,7 @@ export class CalcPage extends Page{
       dropdown_content.setAttribute("id", `${html_id}`)
 
       //creating content for drop down
-      for (let i=0; i < data.length; i++){
+      for (let i = 0; i < data.length; i++){
         let inject = data[i][key]; //getting the material name from db
         if (inject === null){
           inject = ""
