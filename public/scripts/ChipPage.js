@@ -104,6 +104,7 @@ export class ChipPage extends CalcPage {
     async render_content(){
 
         this.material_data = await this.getInfo(this.materials_url);
+        this.tool_diameters = this.column_parser(this.material_data);
 
        let mtrlTxtBx = this.generate_input(this.material_input_id, "text");
        let feedbx = this.generate_input(this.Feed_rt_input_id, "number");

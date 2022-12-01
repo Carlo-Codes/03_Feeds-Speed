@@ -55,7 +55,8 @@ export class FeedsSpeeds extends CalcPage {
         this.clearPage();
         let title_node = document.createTextNode(this.title);
         this.title_html.appendChild(title_node);
-        this.retrieve_data();
+        this.material_data = await this.getInfo(this.materials_url);
+        this.tool_diameters = this.column_parser(this.material_data);
         
         
 
