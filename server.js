@@ -201,6 +201,7 @@ app.get('/chiploadInfo', (req, res) => {
 app.post('/checkuserexists', (req, res) => {
     let username = req.body['username'];
 
+    console.log(username + "is whats sent to mysql")
     let sendresult = {}
     dbCon.query(`select exists (select * from users where email = '${username}');`, (err, results) => {
         if(err) throw err;
