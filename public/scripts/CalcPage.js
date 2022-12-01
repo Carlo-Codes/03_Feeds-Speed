@@ -35,9 +35,9 @@ export class CalcPage extends Page{
     }
 
 
-    generate_dropdown(html_id, input_data, key){ //should be a prototype; creates dropdowns
+    generate_dropdown(html_id, data, key){ //should be a prototype; creates dropdowns
 
-      let data = input_data [0];
+   
 
       //html component parts
       let label = document.createElement("label"); //creating label for dropdown
