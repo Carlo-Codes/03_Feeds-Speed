@@ -29,7 +29,7 @@ export class CalcPage extends Page{
       let array = []
       let keys = Object.keys(data[0]) //columns of the database include name, user id etc
       for(let i = 3; i < keys.length; i++){ // start from 2 to only retrieve tool diameters 
-        array.push({diameter : keys[i]})
+        array.push({Diameter : keys[i]})
       }
       return array
     }
