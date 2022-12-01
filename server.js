@@ -142,18 +142,7 @@ dbCon.connect((err) => {
     console.log("db Connected");
 });
 
-let corsOptionconfig = {
-    "origin": corsOrigin,
-    "methods": ['GET','HEAD','PUT','PATCH','POST','DELETE', 'OPTIONS'],
-    "Access-Control-Allow-Headers" : "auth, Content-Type",
-    "Access-Control-Expose-Headers": "auth, Content-Type",
-    "preflightContinue": "false",
-    "optionsSuccessStatus": 204 , 
-    "Access-Control-Expose-Headers":"credentials",
-    "Access-Control-Allow-Credentials": "true",
-    "credentials" : 'include',
 
-}
 
 let corsConfig = {
     "origin": corsOrigin,
@@ -195,13 +184,13 @@ app.get('/chiploadInfo', (req, res) => {
                     });
                     let colresult = []
                     colresult.push(parsedResponse)
-                    res.status(200).send(colresult)
+                    res.send(JSON.stringify(colresult))
                 })
                 
             } else {
                 console.log(result)
                 
-                res.status(200).send(result)
+                res.send(JSON.stringify(result))
             }
 
         })
