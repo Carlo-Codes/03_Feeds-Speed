@@ -16,7 +16,8 @@ export class FeedsSpeeds extends CalcPage {
       let rpmDD = document.getElementById("RPM");
 
       let material_value = material.value;
-      let toolD_value = toolDiamter.value;
+      let toolD_string = toolDiamter.value;
+      let toolD_value = Number(toolD_string.split("mm")[0])
       let flute_value = flute_no.value;
       let rpm_value = rpmDD.value
 

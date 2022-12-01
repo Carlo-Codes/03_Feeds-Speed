@@ -41,8 +41,9 @@ export class ChipPage extends CalcPage {
         
         material_row[toolD_value] = chipload.toFixed(3); //inserting chipload data
 
-        for (let i = 0 ; i < this.tool_data.length; i++){// estimating the rest of the chiploads
-            let bitDim = this.tool_data[i].Diameter // finding possible tool dim from tool data
+        for (let i = 0 ; i < this.this.tool_diameters.length; i++){// estimating the rest of the chiploads
+            let bitDimstring = this.this.tool_diameters[i].Diameter// finding possible tool dim from tool data
+            let bitDim = Number(bitDimstring.split("mm")[0]) 
             if(bitDim != toolD_value){ // if the rest of the tools arent the one we just calculated
                 let CLfactor = 1 + (bitDim - toolD_value)/10 //factor to aproximate rest of tool chipload
                 material_row[bitDim] = chipload * CLfactor; //filling chiploads per tool diam with 0
