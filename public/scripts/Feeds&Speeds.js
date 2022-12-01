@@ -62,7 +62,7 @@ export class FeedsSpeeds extends CalcPage {
   
         //creating dropdowns
         let material_dropdown = this.generate_dropdown(this.material_dropdown_id, this.material_data, "Material");
-        let tool_diameter_dropdown = this.generate_dropdown(this.tool_diameter_dropdown_id, this.tool_data, "Diameter");
+        let tool_diameter_dropdown = this.generate_dropdown(this.tool_diameter_dropdown_id, this.tool_diameters, "Diameter");
         let tool_flute_number = this.generate_dropdown(this.tool_flute_number_dropdown_id, this.flute_data, "flute");
         let RPM_dropdown = this.generate_dropdown(this.rpm_dropdown_id, this.RPM_data, "RPM");
   
