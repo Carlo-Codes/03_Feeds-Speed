@@ -230,7 +230,7 @@ app.post('/chippost', (req, res) => {
 
 app.post('/delmatrow', (req, res) => {
     let delId = req.body['id']
-    dbCon.query(`delete from chipload where id = ${delId};`)
+    dbCon.query(`delete from ChipLoad where id = ${delId};`)
     res.status(200);
 })
 
