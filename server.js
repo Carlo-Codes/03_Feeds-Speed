@@ -165,7 +165,7 @@ app.use(cors(corsConfig));
 
 
 app.get('/toolInfo', (req, res) => {
-        res.send(200)
+        res.sendStatus(200)
 });
 
 

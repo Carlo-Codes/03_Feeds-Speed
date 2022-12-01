@@ -80,8 +80,8 @@ let login  = new loginPage(signout, homeUrl, "login", "Login")
 let homePage = new Page(homeBut, homeUrl, "/", "Home");
 //let toolPage = new TablePage(toolBut, homeUrl ,tool_dataUrl, tools_title);
 let materialsPage = new TablePage(materialsBut,homeUrl, material_dataUrl ,materials_title);
-let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, [tool_dataUrl, material_dataUrl], FS_title);
-let chippg = new ChipPage(chipBtn, homeUrl, [tool_dataUrl, material_dataUrl], Chip_title);
+let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, material_dataUrl, FS_title);
+let chippg = new ChipPage(chipBtn, homeUrl, material_dataUrl, Chip_title);
 
 let page_arrays = [homePage, materialsPage, feedsSpeedsPg, chippg, login]; // add pages here after init for eventlisteners
 ///bug here with login -- need a login page button

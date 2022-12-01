@@ -5,8 +5,8 @@ export class CalcPage extends Page{
         super(html_button, homeUrl, data_fetch_url, title);
 
         //spliting up array
-        this.tools_url = data_fetch_url[0]; //this is not very modular
-        this.materials_url = data_fetch_url[1];
+        
+        this.materials_url = data_fetch_url;
 
         //html dropdown ids
         this.material_dropdown_id = "Material";
