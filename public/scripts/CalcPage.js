@@ -28,7 +28,7 @@ export class CalcPage extends Page{
       this.material_data = await this.getInfo(this.materials_url);
       let keys = Object.keys(this.material_data[0]) //columns of the database include name, user id etc
       for(let i = 2; i < keys.length; i++){ // start from 2 to only retrieve tool diameters 
-        this.tool_diameters.push(keys[i])
+        this.tool_diameters.push({diameter : keys[i]})
       }
     }
 
