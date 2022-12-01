@@ -55,7 +55,9 @@ export class FeedsSpeeds extends CalcPage {
         this.clearPage();
         let title_node = document.createTextNode(this.title);
         this.title_html.appendChild(title_node);
-        this.material_data = await this.getInfo(this.materials_url);
+        this.retrieve_data();
+        
+        
 
   
         //creating dropdowns

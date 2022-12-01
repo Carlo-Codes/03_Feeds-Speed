@@ -19,9 +19,17 @@ export class CalcPage extends Page{
         this.material_data;
         this.flute_data = [{flute:1}, {flute:2}, {flute:3}, {flute:4}]; // matching how the data comes in from data base
         this.RPM_data = [{RPM:12000},{RPM:13000},{RPM:14000},{RPM:15000},{RPM:16000},{RPM:17000},{RPM:18000},{RPM:19000},{RPM:20000},{RPM:21000}];
-
+        this.tool_diameters = []
 
         
+    }
+
+    async retrieve_data(){
+      this.material_data = await this.getInfo(this.materials_url);
+      let keys = Object.keys(this.material_data[0]) //columns of the database include name, user id etc
+      for(let i = 2; i < keys.length; i++){ // start from 2 to only retrieve tool diameters 
+        this.tool_diameters.push(keys[i])
+      }
     }
 
 
