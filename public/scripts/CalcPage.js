@@ -15,21 +15,15 @@ export class CalcPage extends Page{
         this.rpm_dropdown_id = "RPM";
 
         //DB data
-        this.tool_data;
+        
         this.material_data;
-        this.flute_data;
-        this.RPM_data
+        this.flute_data = [{flute:1}, {flute:2}, {flute:3}, {flute:4}]; // matching how the data comes in from data base
+        this.RPM_data = [{RPM:12000},{RPM:13000},{RPM:14000},{RPM:15000},{RPM:16000},{RPM:17000},{RPM:18000},{RPM:19000},{RPM:20000},{RPM:21000}];
 
 
         
     }
 
-    async retrieve_data() { //getting data from db
-      this.tool_data = await this.getInfo(this.tools_url);
-      this.material_data = await this.getInfo(this.materials_url); 
-      this.flute_data = [{flute:1}, {flute:2}, {flute:3}, {flute:4}]; // matching how the data comes in from data base
-      this.RPM_data = [{RPM:12000},{RPM:13000},{RPM:14000},{RPM:15000},{RPM:16000},{RPM:17000},{RPM:18000},{RPM:19000},{RPM:20000},{RPM:21000}];
-    } 
 
     generate_dropdown(html_id, data, key){ //should be a prototype; creates dropdowns
 
