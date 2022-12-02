@@ -222,8 +222,8 @@ app.post('/chippost', (req, res) => {
     let mysqlFunc = "";
    
     userIdFromToken(token, (userID) => {
-        dbCon.query(`insert into ChipLoad(Material, user_id, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${data['Material']}', ${userID}, ${data['2']}, ${data['4']}, ${data['6']} , ${data['8']}, ${data['10']}, ${data['12']});`, (err, res) => {
-            res.status(200);
+        dbCon.query(`insert into ChipLoad(Material, user_id, 2mm, 4mm, 6mm, 8mm, 10mm, 12mm) values('${data['Material']}', ${userID}, ${data['2']}, ${data['4']}, ${data['6']} , ${data['8']}, ${data['10']}, ${data['12']});`, (err, result) => {
+            res.send(200);
     })
     })
     
