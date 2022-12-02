@@ -199,7 +199,7 @@ app.get('/chiploadInfo', (req, res) => {
 });
 
 app.post('/checkuserexists', (req, res) => {
-    let username = req.body;
+    let username = JSON.stringify(req.body);
 
     console.log(username + "is whats sent to mysql")
     let sendresult = {}
