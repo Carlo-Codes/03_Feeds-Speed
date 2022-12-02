@@ -124,9 +124,9 @@ navBar.addEventListener("click", navEventHandler);
 
 document.body.addEventListener("click", pg_btn_EventHandler);
 
-homePage.render_content()
-authroriseToken();
 
+authroriseToken();
+homePage.render_content()
 
 
 
