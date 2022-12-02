@@ -144,6 +144,10 @@ export class loginPage extends Page{
 
       } else if (exists_check.body === 1){
         let res = await this.newusertoken(email, password, this.h_url + 'newlogin', async (authpackage)=>{
+
+          if (authpackage.authroised === false){
+            this.displayErr("Login Failed")
+          }
           
           this.dbUserId = authpackage.userID;
 
