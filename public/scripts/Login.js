@@ -147,6 +147,7 @@ export class loginPage extends Page{
 
           if (authpackage.authroised === false){
             this.displayErr("Login Failed")
+            return 
           }
           
           this.dbUserId = authpackage.userID;
