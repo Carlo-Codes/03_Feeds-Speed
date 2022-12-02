@@ -20,7 +20,6 @@ const db_password = process.env.db_password
 
 function getcookievalue(name, req){ // getting cooking from the db browser
     let cookies = req.headers["cookie"]
-    //console.log("getcookievalue() cookies =" + cookies)
     let splitcookies = cookies.split("; ");
     for (let i =0; i < splitcookies.length; i++){
       let target = splitcookies[i];
@@ -49,10 +48,6 @@ async function authenticateCredentials(username, password, dbRecord, callback){
 
     let db_id = dbRecord[0].id
 
-    //console.log(db_id)
-
-    //console.log("database email =" + db_email)
-    //console.log("supplied email ="+ username)
     bcryptResult = await bcrypt.compare(password,db_pswrd)
 
     let token = ""
@@ -123,7 +118,6 @@ async function authetnicateToken(token, callback){
 async function userIdFromToken(token, callback){
    await authetnicateToken(token, (package) => {
         if (package.credentials.userID === null) return
-        console.log("userIdFromToken = " + package.credentials.userID)
         return callback(package.credentials.userID)
     })
 }
@@ -171,7 +165,6 @@ app.get('/toolInfo', (req, res) => {
 
 app.get('/chiploadInfo', (req, res) => {
     let token = getcookievalue("token", req)
-    console.log("header token = "+ token)
     userIdFromToken(token,(userID) => {
         dbCon.query(`SELECT * FROM ChipLoad WHERE user_id = ${userID} OR user_id = null;`, (err, result) => {
             if (err) return err
@@ -188,7 +181,7 @@ app.get('/chiploadInfo', (req, res) => {
                 })
                 
             } else {
-                console.log(result)
+               
                 
                 res.send(JSON.stringify(result))
             }
@@ -202,7 +195,7 @@ app.post('/checkuserexists', (req, res) => {
     
     let username = req.body["username"]
 
-    console.log(username + "is whats sent to mysql")
+
     let sendresult = {}
     dbCon.query(`select exists (select * from users where email = '${username}');`, (err, results) => {
         if(err) throw err;
@@ -270,7 +263,7 @@ app.post('/tokenlogin', async (req, res) => {
 
     authetnicateToken(token, (authPackage)=>{
         res.send(JSON.stringify(authPackage))
-        console.log(authPackage)
+        
     })
 
        
@@ -282,19 +275,19 @@ app.post('/newlogin',async (req, res)=>{
     let username = credentials.split(":")[0]
     let password = credentials.split(":")[1]
 
-    console.log(username + password)
+  
 
     let authPackage = await retrieveUser(username, async (results) => {
-        console.log("database results in call back = " + results[0])
+        
          await authenticateCredentials(username,password,results, async (authpackage) => {
-            console.log("auth package in secound call back = " + JSON.stringify(authpackage))
+            
             res.send(JSON.stringify(authpackage))
             return await authpackage
             
          })
     })
 
-    console.log(authPackage)
+   
     
     
     
