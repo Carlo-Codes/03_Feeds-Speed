@@ -225,8 +225,11 @@ app.post('/chippost', (req, res) => {
 
 app.post('/delmatrow', (req, res) => {
     let delId = req.body['id']
-    dbCon.query(`delete from ChipLoad where id = ${delId};`)
-    res.status(200);
+    dbCon.query(`delete from ChipLoad where id = ${delId};`, (err, result) => {
+        res.status(200);
+
+    })
+    
 })
 
 app.post('/addmaterial', (req, res) =>{
