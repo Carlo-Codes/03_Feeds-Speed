@@ -74,7 +74,7 @@ export class loginPage extends Page{
         method: "POST",
         mode: 'cors',
         credentials: 'include',
-        headers: {'Content-Type': 'text/html'},
+        headers: {'Content-Type': 'application/json'},
         body: JSON.stringify({username:username.toLowerCase()}),
       })
       let exists_check = exists.json();
