@@ -10,7 +10,7 @@ let dotenv = require('dotenv');
 let jswt = require('jsonwebtoken');
 let bcrypt = require('bcrypt');
 
-let corsOrigin = 'http://68.183.9.139'
+let corsOrigin = ['68.183.9.139', 'www.carlofeeds.app', 'carlofeeds.app']
 
 dotenv.config();
 const secret = process.env.TOKEN_SECRET;
