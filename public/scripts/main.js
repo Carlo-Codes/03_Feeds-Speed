@@ -50,7 +50,7 @@ function authroriseToken(){
 
 
 // URLS
-const homeUrl = 'https://carlofeeds.app/';
+const homeUrl = 'https://www.carlofeeds.app/';
 const tool_dataUrl = 'toolInfo';
 const material_dataUrl = 'chiploadInfo';
 
