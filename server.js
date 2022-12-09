@@ -134,10 +134,10 @@ var dbCon = mysql.createPool({
     queueLimit: 0,
 });
 
-dbCon.connect((err) => {
-    if (err) throw err;
-    console.log("db Connected");
-});
+//dbCon.connect((err) => {
+//    if (err) throw err;
+//    console.log("db Connected");
+//});
 
 
 
