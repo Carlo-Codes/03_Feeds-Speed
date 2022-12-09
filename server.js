@@ -123,12 +123,15 @@ async function userIdFromToken(token, callback){
 }
 
 //API
-var dbCon = mysql.createConnection({
+var dbCon = mysql.createPool({
     host : "127.0.0.1",
     port : "3306", 
     user : "root",
     password : db_password,
-    database : "feedsspeeds_db"
+    database : "feedsspeeds_db",
+    waitForConnections: true,
+    connectionLimit: 10,
+    queueLimit: 0,
 });
 
 dbCon.connect((err) => {
