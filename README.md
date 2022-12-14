@@ -74,7 +74,7 @@ I am itching to start my next project but if the site is getting used (by my col
 
 
 * **Slow server response** - This could be due to the digital ocean droplet being quite underpowered for mysql.
-* **CSS overhaul and general graphic design **- It looks terrible, graphic design was not a priority for this project but after seeing how powerful CSS can be on codepen, it's something I would like to address or prioritise on my next project.
+* **CSS overhaul and general graphic design ** - It looks terrible, graphic design was not a priority for this project but after seeing how powerful CSS can be on codepen, it's something I would like to address or prioritise on my next project.
 * **Homepage flash on login** - I sillily wrote the nav bar in html when i first started learning rather than creating it in js so i have to hide it on the login page, i think this is what is causing it to flash up.
 * **Retrieve password mechanism** - Currently there isn't a way of doing this other than contacting me directly to modify the user table manually.
 * **Edit Database entries** - All a user can do on the site is add and delete records in the database, it would be worthwhile allowing them to edit past entries.
