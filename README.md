@@ -30,7 +30,7 @@ There are 2 tables on the database, Materials and Users. There is a foreign key 
 **Project Map**
 
 
-![alt_text](img/Project_map.jpg "Project map")
+![Link to image](img/Project_map.jpg "Project map")
 
 
 **<span style="text-decoration:underline;">Things I Enjoyed</span>**
