@@ -29,10 +29,8 @@ There are 2 tables on the database, Materials and Users. There is a foreign key 
 
 **Project Map**
 
-<p id="gdcalert1" ><span style="color: red; font-weight: bold">>>>>>  gd2md-html alert: inline image link here (to img/image1.jpg). Store image on your image server and adjust path/filename/extension if necessary. </span><br>(<a href="#">Back to top</a>)(<a href="#gdcalert2">Next alert</a>)<br><span style="color: red; font-weight: bold">>>>>> </span></p>
 
-
-![alt_text](img/image1.jpg "image_tooltip")
+![alt_text](img/Project_map.jpg "Project map")
 
 
 **<span style="text-decoration:underline;">Things I Enjoyed</span>**
@@ -80,4 +78,4 @@ I am itching to start my next project but if the site is getting used (by my col
 * **Homepage flash on login** - I sillily wrote the nav bar in html when i first started learning rather than creating it in js so i have to hide it on the login page, i think this is what is causing it to flash up.
 * **Retrieve password mechanism** - Currently there isn't a way of doing this other than contacting me directly to modify the user table manually.
 * **Edit Database entries** - All a user can do on the site is add and delete records in the database, it would be worthwhile allowing them to edit past entries.
-* **Display estimated entries** - due to the maths of calculating feeds and speeds, some of the entries are estimated, it would be good to show this in the materials table, maybe with colour, then allow the user to calculate  the chip load with great
+* **Display estimated entries** - due to the maths of calculating feeds and speeds, some of the entries are estimated, it would be good to show this in the materials table, maybe with colour, then allow the user to calculate  the chip load with greater accuracy.
