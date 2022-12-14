@@ -64,8 +64,8 @@ There are 2 tables on the database, Materials and Users. There is a foreign key 
 
 * **Functional programming** - It was only when I was in the middle of the project that I had learnt that classes were a relatively new feature in javascript and that classes are converted into prototypes. In the spirit of learning I feel I should have based the project around functional programming
 * **Splitting the project into features _and _pages** - Looking at the project map, I had split the project up into pages which was mostly great but when I wanted to add a new feature I had to move methods up the inheritance chain. I feel it would have been easier to split the project into feature class/es(tables, calculators etc) and then group them together into page classes.
-* **Start with the backend first **- In my excitement to jump in and create something, I started with the front end which I quickly came to regret as when I started making changes in the back end, I had to make drastic changes to the front end.
-* **Non relational database **- using mysql for this project feels like overkill. It was great to learn as I was interested in it but I feel like the data would be much more easily (and cheaply) stored in a non-relational database.
+* **Start with the backend first** - In my excitement to jump in and create something, I started with the front end which I quickly came to regret as when I started making changes in the back end, I had to make drastic changes to the front end.
+* **Non relational database** - using mysql for this project feels like overkill. It was great to learn as I was interested in it but I feel like the data would be much more easily (and cheaply) stored in a non-relational database.
 
 **<span style="text-decoration:underline;">Todo</span>**
 
@@ -74,7 +74,7 @@ I am itching to start my next project but if the site is getting used (by my col
 
 
 * **Slow server response** - This could be due to the digital ocean droplet being quite underpowered for mysql.
-* **CSS overhaul and general graphic design ** - It looks terrible, graphic design was not a priority for this project but after seeing how powerful CSS can be on codepen, it's something I would like to address or prioritise on my next project.
+* **CSS overhaul and general graphic design** - It looks terrible, graphic design was not a priority for this project but after seeing how powerful CSS can be on codepen, it's something I would like to address or prioritise on my next project.
 * **Homepage flash on login** - I sillily wrote the nav bar in html when i first started learning rather than creating it in js so i have to hide it on the login page, i think this is what is causing it to flash up.
 * **Retrieve password mechanism** - Currently there isn't a way of doing this other than contacting me directly to modify the user table manually.
 * **Edit Database entries** - All a user can do on the site is add and delete records in the database, it would be worthwhile allowing them to edit past entries.
