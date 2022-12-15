@@ -220,8 +220,8 @@ export class loginPage extends Page{
     clearform(){
       this.login_container.replaceChildren(); //clearing containers
       this.button_container.replaceChildren();
-      let errMsg = document.getElementById("error")
-      errMsg.remove()
+      //let errMsg = document.getElementById("error")
+      //errMsg.remove()
     }
 
     renderSignUp(){
