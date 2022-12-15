@@ -33,7 +33,7 @@ export class loginPage extends Page{
     this.login_body.append(this.login_container);
     this.login_body.append(this.button_container);
     this.login_page_html.append(this.login_body);
-    document.body.append(this.login_page_html);
+    
     
     
     
@@ -259,15 +259,17 @@ export class loginPage extends Page{
 
 
    render_content(){
+    
     document.cookie = `token=`
     this.clearPage();
+
     //hiding everything as i CBA to rebuild the the start of the app...i have learnt alot
     let navbar = document.getElementById("nav");
     let contentContainer = document.getElementById("content_container");
     navbar.style.display = "none";
     contentContainer.style.display = "none";
     //
-
+    document.body.append(this.login_page_html);
     this.renderLogin();
 
     }
