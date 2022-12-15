@@ -67,14 +67,15 @@ export class Page{ //should only use classes for status' and should make a class
 
 
      render_content(){
-      //if(document.getElementById("login_body")){
-       // let toRemove = document.getElementById("login_body")
-        //toRemove.remove()
-      //}
+
       this.clearPage();
       let intro = this.createTextElement_id("div", "intro", "// Instructions coming soon")
       this.content_html.appendChild(intro);
       window.location.hash = this.title;
+      if(document.getElementById("login_body")){
+        let toRemove = document.getElementById("login_body")
+        toRemove.remove()
+      }
       
     }
 
