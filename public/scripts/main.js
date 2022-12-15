@@ -15,8 +15,7 @@ TODO
     - making calculated chip load highlited - css
 
   //bugs
-  - check new user exists doesnt work says it doesnt - server is recieveing username as undefined
-
+ flash homescreen on login
 
 */
 
@@ -85,7 +84,7 @@ let feedsSpeedsPg = new FeedsSpeeds(feedSpeedsBut, homeUrl, material_dataUrl, FS
 let chippg = new ChipPage(chipBtn, homeUrl, material_dataUrl, Chip_title);
 
 let page_arrays = [homePage, materialsPage, feedsSpeedsPg, chippg, login]; // add pages here after init for eventlisteners
-///bug here with login -- need a login page button
+
 
 
 
@@ -127,6 +126,7 @@ document.body.addEventListener("click", pg_btn_EventHandler);
 
 
 authroriseToken();
+login.login_page_html.replaceChildren() // getting rid of the loging forms divs
 homePage.render_content()
 
 

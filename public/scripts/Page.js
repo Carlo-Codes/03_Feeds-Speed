@@ -53,7 +53,7 @@ export class Page{ //should only use classes for status' and should make a class
       this.content_html.replaceChildren();
       this.title_html.replaceChildren();
       this.table_html.replaceChildren();
-      this.loginPageHtml.replaceChildren();
+      
       
      }
 
