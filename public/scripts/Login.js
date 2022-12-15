@@ -8,6 +8,9 @@ export class loginPage extends Page{
     //html elements admin
     this.newuserAPI = "newuser"
     
+    this.login_page_html = document.createElement("div")
+    this.login_page_html.setAttribute("id", "login_page_html")
+
     this.login_body = document.createElement("div")
     this.login_body.setAttribute("id", "login_body")
 
@@ -16,6 +19,8 @@ export class loginPage extends Page{
 
     this.button_container = document.createElement("div");
     this.button_container.setAttribute("id", "button_container")
+
+
 
     this.password_ID = "Password"
     this.email_ID = "Email"
@@ -211,6 +216,7 @@ export class loginPage extends Page{
 
     renderSignUp(){
       let inputForm = this.signUp_form();
+      inputForm.setAttribute("id", "signup_form");
       let singUpBtn = this.generate_button("signup", "Signup", this.register.bind(this));
       let renderloginbtn = this.generate_button("rederloginbtn", "Already Signed up? Login here", this.renderLogin.bind(this));
 
@@ -222,10 +228,12 @@ export class loginPage extends Page{
       this.button_container.append(this.htmlbreak);
       this.button_container.append(renderloginbtn);
       this.login_container.append(inputForm);
+      this.login_page_html.append(this.login_container)
     }
 
     renderLogin(){
       let inputForm = this.login_form();
+      inputForm.setAttribute("id", "login_form");
       let loginbtn = this.generate_button("login", "Login", this.newlogintoken.bind(this));
       let renderSignupbtn = this.generate_button("RenderSignup", "Are you new? Sign up here", this.renderSignUp.bind(this));
 
@@ -236,6 +244,7 @@ export class loginPage extends Page{
       this.button_container.append(loginbtn);
       this.button_container.append(this.htmlbreak);
       this.button_container.append(renderSignupbtn);
+      this.login_page_html.append(this.login_container)
       
     }
 
