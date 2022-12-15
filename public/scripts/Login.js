@@ -30,10 +30,12 @@ export class loginPage extends Page{
 
     this.dbUserId; //for use when filtereing entire db
 
-    document.body.append(this.login_page_html);
-    this.login_page_html.append(this.login_body);
     this.login_body.append(this.login_container);
     this.login_body.append(this.button_container);
+    this.login_page_html.append(this.login_body);
+    document.body.append(this.login_page_html);
+    
+    
     
     }
 
