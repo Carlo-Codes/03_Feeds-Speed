@@ -228,7 +228,7 @@ export class loginPage extends Page{
       this.button_container.append(this.htmlbreak);
       this.button_container.append(renderloginbtn);
       this.login_container.append(inputForm);
-      this.login_page_html.append(this.login_container)
+      
     }
 
     renderLogin(){
@@ -243,7 +243,7 @@ export class loginPage extends Page{
       this.button_container.append(loginbtn);
       this.button_container.append(this.htmlbreak);
       this.button_container.append(renderSignupbtn);
-      this.login_page_html.append(this.login_container)
+      
       
     }
 
