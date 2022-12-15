@@ -17,6 +17,7 @@ export class Page{ //should only use classes for status' and should make a class
       this.title_html = document.getElementById("title"); 
       this.content_html = document.getElementById("content");
       this.htmlbreak = document.createElement("br");
+      this.loginPageHtml = documnet.getElementById("login_page_html")
 
       // buttons
       this.buttons = {}; //buttons and their functions stored here for eventlisteners on main.js
@@ -52,6 +53,8 @@ export class Page{ //should only use classes for status' and should make a class
       this.content_html.replaceChildren();
       this.title_html.replaceChildren();
       this.table_html.replaceChildren();
+      this.loginPageHtml.replaceChildren();
+      
      }
 
      createTextElement_id(type = "div", id, text){
