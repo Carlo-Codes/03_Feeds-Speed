@@ -199,7 +199,7 @@ export class loginPage extends Page{
     //UI stuff
     login_form(){
       let email_in = this.generate_input(this.email_ID, "text");
-      let password_in = this.generate_input(this.password_ID, "text");
+      let password_in = this.generate_input(this.password_ID, "password");
 
       let form = this.generate_form([email_in, password_in])
       
