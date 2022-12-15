@@ -19,7 +19,7 @@ export class loginPage extends Page{
 
     this.password_ID = "Password"
     this.email_ID = "Email"
-    this.retypePasswors_ID = "Retypeassword"
+    this.retypePasswors_ID = "Retype password"
 
     this.checkuserexistsURL = 'checkuserexists'
 
@@ -200,8 +200,8 @@ export class loginPage extends Page{
     signUp_form(){
 
       let email_in = this.generate_input(this.email_ID, "text");
-      let password_in = this.generate_input(this.password_ID, "text");
-      let password_2 = this.generate_input(this.retypePasswors_ID, "text")
+      let password_in = this.generate_input(this.password_ID, "password");
+      let password_2 = this.generate_input(this.retypePasswors_ID, "password")
 
       let form = this.generate_form([email_in, password_in, password_2])
       
