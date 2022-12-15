@@ -132,7 +132,7 @@ h1 {
     display: flex;
     justify-content: center;
   }
-  #Email, #Password, #Retypepassword{
+  #Email, #Password, #Retype_password{
     display: flex;
     flex-direction: column;
     justify-content: center;

@@ -19,7 +19,7 @@ export class loginPage extends Page{
 
     this.password_ID = "Password"
     this.email_ID = "Email"
-    this.retypePasswors_ID = "Retype password"
+    this.retypePasswors_ID = "Retype_password"
 
     this.checkuserexistsURL = 'checkuserexists'
 

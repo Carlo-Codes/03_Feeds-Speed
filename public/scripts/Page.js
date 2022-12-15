@@ -31,7 +31,6 @@ export class Page{ //should only use classes for status' and should make a class
           'cookie' : document.cookie,
         }
       });
-      console.log(document.cookie);
 
       let data = await res.json();
       return data;
