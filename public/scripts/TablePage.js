@@ -153,7 +153,7 @@ export class TablePage extends Page {
 
       async render_content(){
          this.data = await this.getInfo(this.url);
-         console.log(this.data)
+         //console.log(this.data)
          
          this.clearPage();
          this.title_html.innerHTML = this.title;

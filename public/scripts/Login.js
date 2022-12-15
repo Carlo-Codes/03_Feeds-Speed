@@ -222,8 +222,12 @@ export class loginPage extends Page{
     clearform(){
       this.login_container.replaceChildren(); //clearing containers
       this.button_container.replaceChildren();
-      //let errMsg = document.getElementById("error")
-      //errMsg.remove()
+
+      if(document.getElementById("error")){
+        let oldErr = document.getElementById("error")
+        oldErr.remove()
+      }
+
     }
 
     renderSignUp(){
@@ -232,6 +236,7 @@ export class loginPage extends Page{
       let singUpBtn = this.generate_button("signup", "Signup", this.register.bind(this));
       let renderloginbtn = this.generate_button("rederloginbtn", "Already Signed up? Login here", this.renderLogin.bind(this));
 
+   
       this.clearform()
       
       this.button_container.append(singUpBtn);
@@ -246,6 +251,7 @@ export class loginPage extends Page{
       inputForm.setAttribute("id", "login_form");
       let loginbtn = this.generate_button("login", "Login", this.newlogintoken.bind(this));
       let renderSignupbtn = this.generate_button("RenderSignup", "Are you new? Sign up here", this.renderSignUp.bind(this));
+
 
       this.clearform()
 
