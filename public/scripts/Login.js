@@ -223,8 +223,8 @@ export class loginPage extends Page{
       let singUpBtn = this.generate_button("signup", "Signup", this.register.bind(this));
       let renderloginbtn = this.generate_button("rederloginbtn", "Already Signed up? Login here", this.renderLogin.bind(this));
 
-      this.login_container.replaceChildren(); //clearing containers
-      this.button_container.replaceChildren();
+      this.login_body.replaceChildren(); //clearing containers
+      
       
       this.button_container.append(singUpBtn);
       this.button_container.append(this.htmlbreak);
@@ -239,8 +239,8 @@ export class loginPage extends Page{
       let loginbtn = this.generate_button("login", "Login", this.newlogintoken.bind(this));
       let renderSignupbtn = this.generate_button("RenderSignup", "Are you new? Sign up here", this.renderSignUp.bind(this));
 
-      this.login_container.replaceChildren(); //clearing containers
-      this.button_container.replaceChildren();
+      this.login_body.replaceChildren(); //clearing containers
+      //this.button_container.replaceChildren();
 
       this.login_container.append(inputForm);
       this.button_container.append(loginbtn);
