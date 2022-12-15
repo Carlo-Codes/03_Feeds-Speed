@@ -127,7 +127,7 @@ document.body.addEventListener("click", pg_btn_EventHandler);
 
 authroriseToken();
 homePage.render_content()
-login.login_page_html.replaceChildren() // getting rid of the loging forms divs
+
 
 
 
