@@ -67,8 +67,8 @@ export class Page{ //should only use classes for status' and should make a class
 
 
      render_content(){
-      if(document.getElementById("login_page_html")){
-        let toRemove = document.getElementById("login_page_html")
+      if(document.getElementById("login_body")){
+        let toRemove = document.getElementById("login_body")
         toRemove.remove()
       }
       this.clearPage();
