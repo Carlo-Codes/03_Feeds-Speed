@@ -72,7 +72,7 @@ export class Page{ //should only use classes for status' and should make a class
       let intro = this.createTextElement_id("div", "intro", "// Instructions coming soon")
       this.content_html.appendChild(intro);
       window.location.hash = this.title;
-
+      
       
     }
 
