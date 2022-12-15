@@ -8,7 +8,8 @@ html {
 
 body {
   display: flex;
-  align-items: center;
+  justify-content: center;
+  
 }
 
 h1 {
@@ -137,6 +138,7 @@ h1 {
     padding: 10px;
     display: flex;
     justify-content: center;
+    width: fit-content;
   }
   #Email, #Password, #Retype_Password{
     display: flex;
