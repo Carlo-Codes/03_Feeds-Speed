@@ -135,6 +135,7 @@ export class loginPage extends Page{
 
           this.newuser(email,password);
           alert("new user created");
+          this.login_page_html.replaceChildren()
           location.reload();
         } 
 
@@ -164,6 +165,7 @@ export class loginPage extends Page{
           console.log(resolvedauthpackage.credentials.token)
           
           document.cookie = `token=${resolvedauthpackage.credentials.token}`
+          this.login_page_html.replaceChildren()
           location.reload()
         })
 
