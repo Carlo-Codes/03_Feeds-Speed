@@ -52,10 +52,10 @@ export class Page{ //should only use classes for status' and should make a class
       this.content_html.replaceChildren();
       this.title_html.replaceChildren();
       this.table_html.replaceChildren();
-      if (document.getElementById("login_body")){
-        let toRemove = document.getElementById("login_body")
-        toRemove.remove();
-      }
+      //if (document.getElementById("login_body")){
+        //let toRemove = document.getElementById("login_body")
+        //toRemove.remove();
+     // }
       
       
      }
