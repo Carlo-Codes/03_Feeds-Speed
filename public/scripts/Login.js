@@ -267,7 +267,7 @@ export class loginPage extends Page{
    render_content(){
     
     document.cookie = `token=`
-    this.clearPage();
+    //this.clearPage();
 
     //hiding everything as i CBA to rebuild the the start of the app...i have learnt alot
     let navbar = document.getElementById("nav");
