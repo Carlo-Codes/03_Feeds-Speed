@@ -275,7 +275,7 @@ export class loginPage extends Page{
     navbar.style.display = "none";
     contentContainer.style.display = "none";
     //
-    document.body.append(this.login_page_html);
+   // document.body.append(this.login_page_html);
     this.renderLogin();
 
     }
