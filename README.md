@@ -64,7 +64,7 @@ There are 2 tables on the database, Materials and Users. There is a foreign key 
     * Letsencrypt - after realising it was a domain validation issue, I tried creating my own key, which let users know that the site was unsafe. Looking back it was a silly idea. It's then I started to research letsencrypt.
     
 * **Trying to Make My Server Without Express** - Originally, in the spirit of learning from the ground up, I tried to make my node server without express and just use the http module. As this was very early on in the project and my learning, it felt hard to continue my learning as it felt like hitting a dead end. I conceded and used express, it taught me that:
-    * Having fun and feeling productive and perseverance are all important to my learning. 
+    * Having fun, feeling productive and perseverance are all important to my learning. 
 
 **<span style="text-decoration:underline;">What I Would Have Done Differently</span>**
 ---
@@ -81,7 +81,7 @@ There are 2 tables on the database, Materials and Users. There is a foreign key 
 **<span style="text-decoration:underline;">Todo</span>**
 ---
 
-I am itching to start my next project but if the site is getting used (by my colleagues mainly) then I will devote some time to the following things:
+I am itching to start my next project but if the site is getting used (by my colleagues mainly) then I will create a beta branch and devote some time to the following things:
 
 
 
